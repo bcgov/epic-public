@@ -14,12 +14,26 @@ import { HOME_TAB_KEYS, HOME_TABS } from "constants";
 
 const useStyles = makeStyles()((theme) => ({
 	selectedTab: {
-		backgroundColor: theme.palette.primary.dark,
+		background: `radial-gradient(circle, #145185 0%, #152D46 100%) !important`,
+		backgroundAttachment: "fixed !important",
 		borderRadius: "0.25rem 0.25rem 0 0",
 		color: `${theme.palette.common.white} !important`,
 	},
 	tabs: {
 		paddingLeft: "3rem",
+		minHeight: "2rem",
+		"& .MuiTabs-indicator": {
+			display: "none",
+		},
+		"& .MuiTabs-flexContainer": {
+			gap: "0.625rem",
+		},
+		"& button": {
+			background: "#f6f9fc",
+			borderRadius: "0.25rem 0.25rem 0 0",
+			minHeight: "2rem",
+			height: "2rem",
+		},
 	},
 	feed: {
 		background: "#F6F9FC",
@@ -32,6 +46,7 @@ const Home = () => {
 	const { classes } = useStyles();
 
 	const [selectedTab, setSelectedTab] = useState(HOME_TAB_KEYS.PROJECTS);
+	const [showUpdates, setShowUpdates] = useState(true);
 
 	return (
 		<div>
@@ -49,11 +64,13 @@ const Home = () => {
 			<div role="tabpanel">
 				{selectedTab === HOME_TAB_KEYS.PROJECTS ? (
 					<div>
-						<Projects />
-						<div className={classes.feed}>
-							<UpdatesFeed setSelectedTab={setSelectedTab} />
-							<PcpFeed setSelectedTab={setSelectedTab}></PcpFeed>
-						</div>
+						<Projects setShowUpdates={setShowUpdates} />
+						{showUpdates && (
+							<div className={classes.feed}>
+								<UpdatesFeed setSelectedTab={setSelectedTab} />
+								<PcpFeed setSelectedTab={setSelectedTab}></PcpFeed>
+							</div>
+						)}
 					</div>
 				) : selectedTab === HOME_TAB_KEYS.DOCUMENTS ? (
 					<div>search documents</div>

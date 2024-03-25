@@ -9,9 +9,7 @@ const Search = ({ children: childNodes, tabKey }) => {
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedFilters, setSelectedFilters] = useState([]);
-
 	const filtersRef = useRef();
-
 	// initialize filters
 	useEffect(() => {
 		if (filtersRef.current) return;
@@ -32,7 +30,6 @@ const Search = ({ children: childNodes, tabKey }) => {
 			const added = filters.filter(
 				({ key }) => !remaining.find(({ filterKey: fk, key: k }) => fk === filterKey && k === key),
 			);
-
 			return [...remaining, ...added];
 		});
 	};
@@ -46,8 +43,6 @@ const Search = ({ children: childNodes, tabKey }) => {
 	const onSearch = () => {
 		if (!searchTerm || isSearching) return;
 		setIsSearching(true);
-
-		console.log(`Searching for ${searchTerm}`);
 	};
 
 	const onSearchTermChange = (term) => {
@@ -70,7 +65,6 @@ const Search = ({ children: childNodes, tabKey }) => {
 		selectedFilters,
 		tabKey,
 	};
-
 	return <SearchContext.Provider value={value}>{childNodes}</SearchContext.Provider>;
 };
 
@@ -80,6 +74,7 @@ export const SearchProvider = ({ children, tabKey }) => {
 
 export const useSearch = () => {
 	const context = useContext(SearchContext);
+	console.log(`context`, context);
 	if (!context) {
 		throw new Error("useSearch must be used within a SearchProvider");
 	}

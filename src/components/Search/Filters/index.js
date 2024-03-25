@@ -3,11 +3,14 @@ import { makeStyles } from "tss-react/mui";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FilterAltOffOutlinedIcon from "@mui/icons-material/FilterAltOffOutlined";
 
 import { useSearch } from "contexts/Search";
 
 import { getFilterComponent } from "./services";
+
+import { FILTER_KEYS } from "constants";
 
 const useStyles = makeStyles()((theme) => ({
 	container: {
@@ -19,12 +22,49 @@ const useStyles = makeStyles()((theme) => ({
 		minHeight: "4rem",
 	},
 	clear: {
-		marginLeft: "2rem",
+		marginLeft: "1rem",
+		minWidth: "8.25rem",
+		color: "#FFFFFF",
+		fontWeight: 700,
 	},
 	list: {
 		display: "flex",
+		flexWrap: "wrap",
 		gap: "1rem",
 		listStyleType: "none",
+		paddingLeft: "1rem",
+		"& .MuiChip-root": {
+			fontSize: "1rem",
+			borderRadius: "0.25rem",
+		},
+		"& .projectPhases": {
+			color: "#323130",
+			backgroundColor: "#F1F8FF",
+			"& svg": {
+				color: "#323130",
+			},
+		},
+		"& .projectRegions": {
+			color: "#053662",
+			backgroundColor: "#E3EBFF",
+			"& svg": {
+				color: "#053662",
+			},
+		},
+		"& .proponents": {
+			color: "#593F00",
+			backgroundColor: "#FFF8E8",
+			"& svg": {
+				color: "#593F00",
+			},
+		},
+		"& .projectTypes": {
+			color: "#553402",
+			backgroundColor: "#ffe095",
+			"& svg": {
+				color: "#553402",
+			},
+		},
 	},
 	filters: {
 		display: "flex",
@@ -39,7 +79,6 @@ const useStyles = makeStyles()((theme) => ({
 
 const Filters = () => {
 	const { classes } = useStyles();
-
 	const { filters = [], onClearFilters, onRemoveFilter, selectedFilters } = useSearch();
 
 	return (
@@ -53,12 +92,18 @@ const Filters = () => {
 						<ul className={classes.list}>
 							{selectedFilters.map(({ color = "success", description, filterKey, key }, i) => (
 								<li key={i}>
-									<Chip color={color} label={description} onDelete={() => onRemoveFilter(filterKey, key)} />
+									<Chip
+										className={filterKey}
+										color={color}
+										label={description}
+										onDelete={() => onRemoveFilter(filterKey, key)}
+										deleteIcon={<CloseRoundedIcon />}
+									/>
 								</li>
 							))}
 						</ul>
 						<Button className={classes.clear} color="secondary" onClick={onClearFilters}>
-							Clear Filters <FilterAltOffOutlinedIcon />
+							Clear Filters &nbsp; <FilterAltOffOutlinedIcon />
 						</Button>
 					</>
 				)}

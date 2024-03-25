@@ -8,7 +8,7 @@ const useStyles = makeStyles()((theme) => ({
 	container: {
 		background: "radial-gradient(circle, #145185 0%, #152D46 100%)",
 		color: "white",
-		padding: "0 3rem",
+		padding: "0 3rem 2rem 3rem",
 	},
 	header: {
 		margin: 0,
@@ -16,7 +16,7 @@ const useStyles = makeStyles()((theme) => ({
 	},
 }));
 
-const Search = ({ title = "" }) => {
+const Search = ({ title }) => {
 	const { classes } = useStyles();
 
 	return (

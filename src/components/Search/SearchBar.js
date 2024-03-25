@@ -13,13 +13,17 @@ const useStyles = makeStyles()((theme) => ({
 	container: {
 		color: "white",
 		display: "flex",
+		border: "1px solid #eeeeee",
+		borderRadius: "4px",
+		boxShadow: "2px 6px 8px 0px #0000001A",
 	},
 	clearButton: {
-		color: theme.palette.grey.main,
+		color: theme.palette.text.primary,
 		fontSize: "1.25rem",
 		marginLeft: "1rem",
 	},
 	searchButton: {
+		borderRadius: "0 3px 3px 0",
 		fontSize: "1rem",
 		fontWeight: 700,
 		padding: "0 2rem",
@@ -32,9 +36,15 @@ const useStyles = makeStyles()((theme) => ({
 	},
 	textField: {
 		background: theme.palette.common.white,
+		border: "none",
+		borderRadius: "3px 0 0 3px",
 		width: "100%",
 		"& .MuiInputBase-root": {
+			borderRadius: "0px",
 			height: "3rem",
+			"& fieldset": {
+				display: "none",
+			},
 		},
 	},
 }));

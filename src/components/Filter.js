@@ -11,6 +11,9 @@ import Checkbox from "@mui/material/Checkbox";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import { PROJECT_LEGISLATION_YEARS } from "constants";
+import { FILTER_KEYS } from "constants";
+
 const useStyles = makeStyles()((theme, { width }) => ({
 	filter: {
 		color: "white",
@@ -19,6 +22,8 @@ const useStyles = makeStyles()((theme, { width }) => ({
 	menuButton: {
 		alignItems: "center",
 		background: theme.palette.common.white,
+		border: "1px",
+		borderRadius: "0.25rem",
 		color: theme.palette.grey.dark,
 		display: "flex",
 		fontSize: "1rem",
@@ -38,16 +43,24 @@ const useStyles = makeStyles()((theme, { width }) => ({
 		"&:disabled": {
 			opacity: 0.7,
 		},
+		"&.base--expanded": {
+			borderBottom: "none",
+			borderRadius: "0.25rem 0.25rem 0 0",
+		},
 	},
 	menu: {
 		background: theme.palette.common.white,
 		boxShadow: "2px 6px 8px 0px #0000001A",
+		border: "1px solid #EEEEEE",
+		borderRadius: "0 0 0.25rem 0.25rem",
 		width: width,
 		"& ul": {
 			listStyleType: "none",
 			margin: 0,
 			padding: 0,
 		},
+		overflowY: "auto",
+		maxHeight: "500px",
 	},
 	menuItem: {
 		alignItems: "center",
@@ -56,11 +69,10 @@ const useStyles = makeStyles()((theme, { width }) => ({
 	},
 }));
 
-const Filter = ({ icon, items = [], onChange, selected, title }) => {
+const Filter = ({ filterKey, icon, items = [], onChange, selected, title }) => {
 	const [keys, setKeys] = useState(selected.map(({ key }) => key));
 	const [open, setOpen] = useState(false);
 	const [width, setWidth] = useState(0);
-
 	const { classes } = useStyles({ width });
 
 	const disabled = !items.length;
@@ -91,8 +103,9 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 		onChange(items.filter(({ key }) => keys.includes(key)));
 	}, [items, keys, onChange]);
 
-	const onSelect = (key) =>
+	const onSelect = (key) => {
 		setKeys((keys) => (keys.includes(key) ? keys.filter((val) => val !== key) : [...keys, key]));
+	};
 
 	const onToggle = () => setOpen((val) => !val);
 
@@ -131,6 +144,7 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 };
 
 Filter.propTypes = {
+	filterKey: PropTypes.string,
 	icon: PropTypes.element,
 	items: PropTypes.arrayOf(PropTypes.object).isRequired,
 	onChange: PropTypes.func.isRequired,
