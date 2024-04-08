@@ -37,13 +37,14 @@ const DateRangePicker = ({ endDate, setEndDate, setStartDate, startDate }) => {
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns}>
 			{startDate && endDate && (
-				<div className={classes.label}>
+				<div aria-label="Date range label" className={classes.label}>
 					<div>{`${formatDateLongMonth(startDate)}`}</div>
 					<div>{`${formatDateLongMonth(endDate)}`}</div>
 				</div>
 			)}
 			<Box display="flex" alignItems="center" gap={2}>
 				<DateCalendar
+					aria-label="Select start date"
 					onChange={handleStartDateChange}
 					showDaysOutsideCurrentMonth
 					slots={{
@@ -60,6 +61,7 @@ const DateRangePicker = ({ endDate, setEndDate, setStartDate, startDate }) => {
 					views={["year", "month", "day"]}
 				/>
 				<DateCalendar
+					aria-label="Select end date"
 					minDate={startDate}
 					onChange={handleEndDateChange}
 					showDaysOutsideCurrentMonth

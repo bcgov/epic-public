@@ -138,7 +138,7 @@ const DatePickerFilter = ({
 					</div>
 					{open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 				</MenuButton>
-				<Menu className={classes.menu}>
+				<Menu aria-label="Date Range Picker" className={classes.menu}>
 					<DateRangePicker
 						endDate={endDate}
 						setEndDate={setEndDate}
