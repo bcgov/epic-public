@@ -10,11 +10,7 @@ export const FILTER_KEYS = {
 	UPDATE_TYPES: "updateTypes",
 };
 // filter options
-export const DATE_RANGE = [
-	{ description: "Option 1", key: "1" },
-	{ description: "Option 2", key: "2" },
-	{ description: "Option 3", key: "3" },
-];
+export const DATE_RANGE = [{ description: "Date", key: "date" }];
 export const DOCUMENT_AUTHORS = [
 	{ description: "Option 1", key: "1" },
 	{ description: "Option 2", key: "2" },

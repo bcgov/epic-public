@@ -6,6 +6,21 @@ const testDate = new Date(2024, 2, 12);
 const testString = "2024-03-12T08:00:00.000Z";
 
 describe("Date service tests", () => {
+	describe("addDays tests", () => {
+		const days = 5;
+		const expected = new Date(testDate);
+		expected.setDate(testDate.getDate() + days);
+
+		test("throws an error for an invalid first date", () => {
+			expect(() => service.addDays("oops", days)).toThrow("date service: addDays: invalid date: oops");
+		});
+
+		test("returns a new date with the expected difference in days", () => {
+			const result = service.addDays(testDate, days);
+
+			expect(result).toEqual(expected);
+		});
+	});
 	describe("formatDateOnlyISO tests", () => {
 		const expected = "2024-03-12";
 
@@ -43,6 +58,28 @@ describe("Date service tests", () => {
 
 		test("returns a date string as a formatted string", () => {
 			const result = service.formatDateLongMonth(testString);
+
+			expect(result).toEqual(expected);
+		});
+	});
+
+	describe("formatDateShortMonth tests", () => {
+		const expected = "Mar 12, 2024";
+
+		test("throws an error for an invalid date", () => {
+			expect(() => service.formatDateShortMonth("oops")).toThrow(
+				"date service: formatDateShortMonth: invalid date: oops",
+			);
+		});
+
+		test("returns a date as formatted string", () => {
+			const result = service.formatDateShortMonth(testDate);
+
+			expect(result).toEqual(expected);
+		});
+
+		test("returns a date string as a formatted string", () => {
+			const result = service.formatDateShortMonth(testString);
 
 			expect(result).toEqual(expected);
 		});

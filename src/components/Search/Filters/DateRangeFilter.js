@@ -1,28 +1,32 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 
 import { useSearch } from "contexts/Search";
 
-import Filter from "components/Filter";
+import DatePickerFilter from "components/DatePickerFilter";
 
-import { DATE_RANGE, FILTER_KEYS } from "constants/filters";
-
-const filterKey = FILTER_KEYS.DATE_RANGE;
-
-const DateRangeFilter = () => {
+const DateRangeFilter = ({ filterKey }) => {
 	const { onFilterChange, selectedFilters } = useSearch();
 
-	const items = useMemo(() => DATE_RANGE.map((item) => ({ ...item, filterKey })), []);
+	const [dateStart, setDateStart] = useState(null);
+	const [dateEnd, setDateEnd] = useState(null);
 
-	const selected = useMemo(() => selectedFilters.filter(({ filterKey: fk }) => fk === filterKey), [selectedFilters]);
+	const selected = useMemo(
+		() => selectedFilters.filter(({ filterKey: fk }) => fk === filterKey),
+		[selectedFilters, filterKey],
+	);
 
 	return (
-		<Filter
+		<DatePickerFilter
+			endDate={dateEnd}
+			filterKey={filterKey}
 			icon={<DateRangeOutlinedIcon />}
-			items={items}
 			onChange={(filters) => onFilterChange(filterKey, filters)}
 			selected={selected}
+			setEndDate={setDateEnd}
+			setStartDate={setDateStart}
+			startDate={dateStart}
 			title="Date Range"
 		/>
 	);
