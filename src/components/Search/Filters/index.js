@@ -10,8 +10,6 @@ import { useSearch } from "contexts/Search";
 
 import { getFilterComponent } from "./services";
 
-// import { FILTER_KEYS } from "constants";
-
 const useStyles = makeStyles()((theme) => ({
 	container: {
 		color: "white",
@@ -37,28 +35,28 @@ const useStyles = makeStyles()((theme) => ({
 			fontSize: "1rem",
 			borderRadius: "0.25rem",
 		},
-		"& .projectPhases": {
+		"& .projectPhases, .documentProjectPhases": {
 			color: "#323130",
 			backgroundColor: "#F1F8FF",
 			"& svg": {
 				color: "#323130",
 			},
 		},
-		"& .projectRegions": {
+		"& .projectRegions, .documentAuthors": {
 			color: "#053662",
 			backgroundColor: "#E3EBFF",
 			"& svg": {
 				color: "#053662",
 			},
 		},
-		"& .proponents": {
+		"& .proponents, .dateRange": {
 			color: "#593F00",
 			backgroundColor: "#FFF8E8",
 			"& svg": {
 				color: "#593F00",
 			},
 		},
-		"& .projectTypes": {
+		"& .type, .documentTypes": {
 			color: "#553402",
 			backgroundColor: "#ffe095",
 			"& svg": {

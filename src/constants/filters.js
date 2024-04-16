@@ -11,6 +11,12 @@ export const FILTER_KEYS = {
 	STATUS: "status",
 	UPDATE_TYPES: "updateTypes",
 };
+export const LIST_TYPE_FILTER_KEYS = {
+	[FILTER_KEYS.DOCUMENT_AUTHORS]: "author",
+	[FILTER_KEYS.DOCUMENT_PROJECT_PHASES]: "projectPhase",
+	[FILTER_KEYS.DOCUMENT_TYPES]: "doctype",
+	[FILTER_KEYS.PROJECT_PHASES]: "projectPhase",
+};
 export const API_FILTER_KEYS = {
 	[FILTER_KEYS.DATE_RANGE]: "dateRange",
 	[FILTER_KEYS.DOCUMENT_DATE_RANGE]: ["datePostedStart", "datePostedEnd"],
