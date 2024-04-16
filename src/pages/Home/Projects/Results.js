@@ -102,6 +102,7 @@ const ProjectResults = ({ onSearch }) => {
 				<Results
 					columns={tableColumns}
 					data={projects}
+					onRowClick={(row) => window.open(`/p/${row.key}/project-details`)}
 					order={order}
 					orderBy={orderBy}
 					pageNum={pageNum}

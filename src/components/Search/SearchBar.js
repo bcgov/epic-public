@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { makeStyles } from "tss-react/mui";
 
 import Button from "@mui/material/Button";
@@ -49,7 +50,7 @@ const useStyles = makeStyles()((theme) => ({
 	},
 }));
 
-const SearchBar = () => {
+const SearchBar = ({ placeholder }) => {
 	const { classes } = useStyles();
 
 	const { isSearching, onSearch, onSearchTermChange, searchTerm } = useSearch();
@@ -73,7 +74,7 @@ const SearchBar = () => {
 					startAdornment: <SearchIcon className={classes.searchIcon} />,
 				}}
 				onChange={({ target: { value = "" } = {} }) => onSearchTermChange(value)}
-				placeholder="Search by keywords for Project Name, Project Type, Project Region, and Proponent"
+				placeholder={placeholder}
 				value={searchTerm}
 			/>
 			<Button
@@ -87,6 +88,10 @@ const SearchBar = () => {
 			</Button>
 		</div>
 	);
+};
+
+SearchBar.propTypes = {
+	placeholder: PropTypes.string,
 };
 
 export default SearchBar;

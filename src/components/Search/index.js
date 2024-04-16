@@ -16,19 +16,20 @@ const useStyles = makeStyles()((theme) => ({
 	},
 }));
 
-const Search = ({ title }) => {
+const Search = ({ title, placeholder }) => {
 	const { classes } = useStyles();
 
 	return (
 		<div className={classes.container}>
 			<h2 className={classes.header}>{title && `Search ${title}`}&nbsp;</h2>
-			<SearchBar />
+			<SearchBar placeholder={placeholder} />
 			<Filters />
 		</div>
 	);
 };
 
 Search.propTypes = {
+	placeholder: PropTypes.string,
 	title: PropTypes.string,
 };
 

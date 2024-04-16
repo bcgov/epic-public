@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "tss-react/mui";
 
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from "@mui/material";
+import Link from "@mui/material/Link";
 
 import ResultsPagination from "./Pagination";
 
@@ -40,6 +41,7 @@ const useStyles = makeStyles()((theme) => ({
 const Results = ({
 	columns,
 	data,
+	onRowClick,
 	order,
 	orderBy,
 	pageNum,
@@ -90,10 +92,27 @@ const Results = ({
 					</TableHead>
 					<TableBody>
 						{data.map((row) => (
-							<TableRow key={row.key}>
-								{columns.map((column) => (
-									<TableCell key={column.value}>{row[column.value]}</TableCell>
-								))}
+							<TableRow
+								key={row.key}
+								hover={true}
+								{...(onRowClick && { onClick: () => onRowClick(row) })}
+								sx={{
+									cursor: onRowClick ? "pointer" : "default",
+								}}
+							>
+								{columns.map((column) =>
+									column.isLink ? (
+										<TableCell key={column.value}>
+											<span onClick={(event) => event.stopPropagation()}>
+												<Link href={row[column.linkValue]} underline="hover">
+													{row[column.value]}
+												</Link>
+											</span>
+										</TableCell>
+									) : (
+										<TableCell key={column.value}>{row[column.value]}</TableCell>
+									),
+								)}
 							</TableRow>
 						))}
 					</TableBody>
@@ -113,6 +132,7 @@ const Results = ({
 Results.propTypes = {
 	columns: PropTypes.arrayOf(PropTypes.object).isRequired,
 	data: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onRowClick: PropTypes.func.isRequired,
 	order: PropTypes.string.isRequired,
 	orderBy: PropTypes.string.isRequired,
 	setOrder: PropTypes.func.isRequired,
