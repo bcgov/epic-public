@@ -45,3 +45,10 @@ export const subtractDays = (dateOrString, days = 0) => {
 
 	return date;
 };
+
+export const addDays = (date, daysToAdd) => {
+	const result = new Date(date);
+	result.setDate(result.getDate() + daysToAdd);
+
+	return result;
+};

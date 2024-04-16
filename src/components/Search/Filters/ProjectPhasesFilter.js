@@ -8,11 +8,7 @@ import useLists from "queries/useLists";
 
 import Filter from "components/Filter";
 
-import { FILTER_KEYS } from "constants/filters";
-
-const filterKey = FILTER_KEYS.PROJECT_PHASES;
-
-const ProjectPhasesFilter = () => {
+const ProjectPhasesFilter = ({ filterKey }) => {
 	const { onFilterChange, selectedFilters } = useSearch();
 
 	const { data = [{ searchResults: [] }] } = useLists({ enabled: true });
@@ -37,9 +33,12 @@ const ProjectPhasesFilter = () => {
 				return { ...item, key: item.key.join(",") };
 			})
 			.sort((a, b) => a.description > b.description);
-	}, [data]);
+	}, [data, filterKey]);
 
-	const selected = useMemo(() => selectedFilters.filter(({ filterKey: fk }) => fk === filterKey), [selectedFilters]);
+	const selected = useMemo(
+		() => selectedFilters.filter(({ filterKey: fk }) => fk === filterKey),
+		[filterKey, selectedFilters],
+	);
 
 	return (
 		<Filter

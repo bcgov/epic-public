@@ -1,6 +1,7 @@
 import DateRangeFilter from "./DateRangeFilter";
 import DocumentAuthorsFilter from "./DocumentAuthorsFilter";
 import DocumentTypesFilter from "./DocumentTypesFilter";
+import PcpPhaseFilter from "./PcpPhaseFilter";
 import ProjectPhasesFilter from "./ProjectPhasesFilter";
 import ProjectRegionsFilter from "./ProjectRegionsFilter";
 import ProjectTypesFilter from "./ProjectTypesFilter";
@@ -18,8 +19,10 @@ export const getFilterComponent = (filterKey) => {
 			return <DocumentAuthorsFilter key={filterKey} />;
 		case FILTER_KEYS.DOCUMENT_TYPES:
 			return <DocumentTypesFilter key={filterKey} />;
+		case FILTER_KEYS.PCP_PROJECT_PHASES:
+			return <PcpPhaseFilter key={filterKey} />;
 		case FILTER_KEYS.PROJECT_PHASES:
-			return <ProjectPhasesFilter key={filterKey} />;
+			return <ProjectPhasesFilter key={filterKey} filterKey={filterKey} />;
 		case FILTER_KEYS.PROJECT_REGIONS:
 			return <ProjectRegionsFilter key={filterKey} />;
 		case FILTER_KEYS.PROJECT_TYPES:

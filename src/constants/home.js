@@ -29,7 +29,7 @@ export const HOME_TABS = [
 		name: "Search Documents",
 	},
 	{
-		filters: [FILTER_KEYS.DATE_RANGE, FILTER_KEYS.PROJECT_PHASES, FILTER_KEYS.STATUS],
+		filters: [FILTER_KEYS.DATE_RANGE, FILTER_KEYS.PCP_PROJECT_PHASES, FILTER_KEYS.STATUS],
 		key: HOME_TAB_KEYS.PUBLIC_COMMENT_PERIODS,
 		name: "Public Comment Periods",
 	},

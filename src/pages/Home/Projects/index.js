@@ -13,11 +13,7 @@ const Projects = ({ onShowUpdates }) => {
 		<div>
 			<SearchProvider tabKey={HOME_TAB_KEYS.PROJECTS}>
 				<Search title="Projects" />
-				<ProjectResults
-					onSearch={(searching) => {
-						onShowUpdates(!searching);
-					}}
-				/>
+				<ProjectResults onSearch={(searching) => onShowUpdates(!searching)} />
 			</SearchProvider>
 		</div>
 	);

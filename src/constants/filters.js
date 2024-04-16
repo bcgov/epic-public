@@ -4,6 +4,8 @@ export const FILTER_KEYS = {
 	DOCUMENT_AUTHORS: "documentAuthors",
 	DOCUMENT_PROJECT_PHASES: "documentProjectPhases",
 	DOCUMENT_TYPES: "documentTypes",
+	PCP_PROJECT_PHASES: "pcpProjectPhases",
+	PCP_RECENT: "pcpRecent",
 	PROJECT_PHASES: "projectPhases",
 	PROJECT_REGIONS: "projectRegions",
 	PROJECT_TYPES: "projectTypes",
@@ -17,6 +19,8 @@ export const API_FILTER_KEYS = {
 	[FILTER_KEYS.DOCUMENT_AUTHORS]: "documentAuthorType",
 	[FILTER_KEYS.DOCUMENT_PROJECT_PHASES]: "projectPhase",
 	[FILTER_KEYS.DOCUMENT_TYPES]: "type",
+	[FILTER_KEYS.PCP_RECENT]: "dateCompletedStart",
+	[FILTER_KEYS.PCP_PROJECT_PHASES]: "phaseName",
 	[FILTER_KEYS.PROJECT_PHASES]: "currentPhaseName",
 	[FILTER_KEYS.PROJECT_REGIONS]: "projectRegions",
 	[FILTER_KEYS.PROJECT_TYPES]: "type",
@@ -51,7 +55,15 @@ export const DOCUMENT_AUTHORS = [
 	{ description: "Working Groups/Technical Advisory Committee ", map: DOCUMENT_AUTHOR_MAP.WORKING_GROUPS },
 	{ description: "Other", map: DOCUMENT_AUTHOR_MAP.OTHER },
 ];
-
+export const PCP_PROJECT_PHASES = [
+	{ description: "Decision", key: "Decision" },
+	{ description: "Determination", key: "Determination" },
+	{ description: "Evaluation", key: "Evaluation" },
+	{ description: "Intake", key: "Intake" },
+	{ description: "Post-Certification", key: "Post-Certification" },
+	{ description: "Review", key: "Review" },
+	{ description: "Scope", key: "Scope" },
+];
 export const PROJECT_REGIONS = [
 	{ description: "Cariboo", key: "Cariboo" },
 	{ description: "Kootenay", key: "Kootenay" },
@@ -93,9 +105,9 @@ export const PROJECT_TYPES = [
 	{ description: "Water Management", key: PROJECT_TYPE_KEYS.WATER_MANAGEMENT },
 ];
 export const STATUSES = [
-	{ description: "Option 1", key: "1" },
-	{ description: "Option 2", key: "2" },
-	{ description: "Option 3", key: "3" },
+	{ description: "Open", key: "open" },
+	{ description: "Closed", key: "closed" },
+	{ description: "Upcoming", key: "upcoming" },
 ];
 
 export const UPDATE_TYPES = [

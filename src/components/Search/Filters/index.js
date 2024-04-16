@@ -10,8 +10,6 @@ import { useSearch } from "contexts/Search";
 
 import { getFilterComponent } from "./services";
 
-// import { FILTER_KEYS } from "constants";
-
 const useStyles = makeStyles()((theme) => ({
 	container: {
 		color: "white",
@@ -58,7 +56,7 @@ const useStyles = makeStyles()((theme) => ({
 				color: "#593F00",
 			},
 		},
-		"& .projectTypes": {
+		"& .projectTypes, .status": {
 			color: "#553402",
 			backgroundColor: "#ffe095",
 			"& svg": {
