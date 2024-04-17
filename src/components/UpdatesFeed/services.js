@@ -14,7 +14,7 @@ export const getProjectIcon = (projectType) => {
 	switch (projectType) {
 		case PROJECT_TYPE_KEYS.ENERGY_ELECTRICITY:
 			return <ElectricalServicesIcon key={projectType} />;
-		case PROJECT_TYPE_KEYS.ENERGY_PATROLIUM:
+		case PROJECT_TYPE_KEYS.ENERGY_PETROLEUM:
 			return <PropaneOutlinedIcon key={projectType} />;
 		case PROJECT_TYPE_KEYS.FOOD_PROCESSING:
 			return <FoodBankIconOutlined key={projectType} />;
