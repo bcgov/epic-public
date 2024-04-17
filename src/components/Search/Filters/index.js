@@ -10,8 +10,6 @@ import { useSearch } from "contexts/Search";
 
 import { getFilterComponent } from "./services";
 
-// import { FILTER_KEYS } from "constants";
-
 const useStyles = makeStyles()((theme) => ({
 	container: {
 		color: "white",
