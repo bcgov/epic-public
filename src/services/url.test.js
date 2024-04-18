@@ -1,6 +1,6 @@
 import { apiConfig } from "queries/endpoints";
 
-import { encodeString, getDocumentDownloadLink, getProjectPath } from "./url";
+import { encodeString, getDocumentDownloadLink, getPcpPath, getProjectPath } from "./url";
 
 describe("Url services test", () => {
 	describe("encodeString", () => {
@@ -18,6 +18,15 @@ describe("Url services test", () => {
 
 			const result = getDocumentDownloadLink(displayName, documentFileName, documentId, internalOriginalName);
 			expect(result).toBe(`${apiConfig.url}/download/${documentId}/download/${encodeString(documentFileName)}`);
+		});
+	});
+
+	describe("getPcpPath tests", () => {
+		test("returns a valid pcp path", () => {
+			const projectId = "12345";
+			const pcpId = "678";
+			const result = getPcpPath(pcpId, projectId);
+			expect(result).toBe(`/p/${projectId}/cp/${pcpId}`);
 		});
 	});
 

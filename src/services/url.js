@@ -14,6 +14,10 @@ export const getDocumentDownloadLink = (displayName, documentFileName, documentI
 	return `${apiConfig.url}/download/${documentId}/download/${encodedName}`;
 };
 
+export const getPcpPath = (pcpId, projectId) => {
+	return `/p/${projectId}/cp/${pcpId}`;
+};
+
 export const getProjectPath = (projectId) => {
 	return `/p/${projectId}/project-details`;
 };

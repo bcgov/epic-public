@@ -10,6 +10,7 @@ import Results from "components/Results";
 
 import { formatDateLongMonth } from "services/date.js";
 import { getStatus } from "services/pcp";
+import { getPcpPath, getProjectPath } from "services/url";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 
@@ -74,7 +75,8 @@ const CommentPeriodResults = () => {
 				dateRange: `${formatDateLongMonth(new Date(dateStarted))} - ${formatDateLongMonth(new Date(dateCompleted))}`,
 				key: _id,
 				phaseName,
-				projectLink: `/p/${project._id}/project-details`,
+				projectId: project._id,
+				projectLink: getProjectPath(project._id),
 				projectName: project.name,
 				status: getStatus(dateStarted, dateCompleted),
 			})),
@@ -90,6 +92,7 @@ const CommentPeriodResults = () => {
 				<Results
 					columns={tableColumns}
 					data={projects}
+					onRowClick={(row) => window.open(getPcpPath(row.projectId, row.key))}
 					order={order}
 					orderBy={orderBy}
 					pageNum={pageNum}

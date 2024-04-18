@@ -10,6 +10,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getProjectIcon } from "./services";
 
 import { formatDateLongMonth } from "services/date";
+import { getPcpPath } from "services/url";
 
 const useStyles = makeStyles()((theme) => ({
 	container: {
@@ -102,7 +103,7 @@ const UpdateCard = ({ documentUrl, pcp, project, updateContent, updateDate, upda
 	const formattedDate = formatDateLongMonth(updateDate);
 
 	const isSingleDoc = documentUrl && !documentUrl.includes("docs?folder");
-	const pcpUrl = pcp ? (pcp.isMet && pcp.metURL ? pcp.metURL : `/p/${project._id}/cp/${pcp._id}`) : "";
+	const pcpUrl = pcp ? (pcp.isMet && pcp.metURL ? pcp.metURL : getPcpPath(pcp._id, project._id)) : "";
 
 	// Set Read More button
 	useEffect(() => {
