@@ -66,23 +66,24 @@ const ResultsPagination = ({ pageNum, pageSize, setPageNum, setPageSize, totalRe
 
 	// MUI Pagination component is 1-indexed
 	const pageNumberOffset = 1;
-
-	const getPageNumberOptions = () => {
-		// creates the list of page numbers for pagenation
-		const pageNumbers = [];
-		TABLE_DEFAULTS.DEFAULT_ROWS_PER_PAGE.forEach((number) => {
-			if (number < totalResultCount) {
-				pageNumbers.push(number);
-			}
-		});
-		pageNumbers.push({ value: totalResultCount, label: "All" });
-		return pageNumbers;
-	};
-
 	const isFirstPage = pageNum === 0;
 	const isLastPage = pageNum === Math.ceil(totalResultCount / pageSize) - 1;
 
-	const pageNumberOptions = getPageNumberOptions();
+	const getDisplayedRowsLabel = (count) => {
+		const result = count > 1 ? "results" : "result";
+		return count < TABLE_DEFAULTS.DEFAULT_ROWS_PER_PAGE[0]
+			? `Showing ${count} of ${count} ${result}`
+			: `of ${count} ${result}`;
+	};
+
+	const getPageNumberOptions = () => {
+		// creates the list of page numbers for pagination
+		const pageOptions = TABLE_DEFAULTS.DEFAULT_ROWS_PER_PAGE.filter((number) => number <= totalResultCount);
+		if (totalResultCount > 0) {
+			pageOptions.push({ value: totalResultCount, label: "All" });
+		}
+		return pageOptions;
+	};
 
 	const handleChangeRowsPerPage = (event) => {
 		setPageSize(parseInt(event.target.value, 10));
@@ -97,14 +98,12 @@ const ResultsPagination = ({ pageNum, pageSize, setPageNum, setPageSize, totalRe
 					component="div"
 					count={totalResultCount}
 					labelRowsPerPage="Showing"
-					labelDisplayedRows={({ count }) => {
-						return `of ${count} results`;
-					}}
+					labelDisplayedRows={({ count }) => getDisplayedRowsLabel(count)}
 					page={pageNum}
 					onPageChange={setPageNum}
 					onRowsPerPageChange={handleChangeRowsPerPage}
-					rowsPerPage={pageSize}
-					rowsPerPageOptions={pageNumberOptions}
+					rowsPerPage={pageSize <= totalResultCount ? pageSize : totalResultCount}
+					rowsPerPageOptions={getPageNumberOptions()}
 					showFirstButton={false}
 					showLastButton={false}
 					slotProps={{

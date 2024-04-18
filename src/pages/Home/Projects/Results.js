@@ -94,6 +94,8 @@ const ProjectResults = ({ onSearch }) => {
 
 	useEffect(() => {
 		onSearch(isSearching);
+		setPageSize(TABLE_DEFAULTS.DEFAULT_PAGE_SIZE);
+		setPageNum(TABLE_DEFAULTS.DEFAULT_CURRENT_PAGE);
 	}, [isSearching, onSearch]);
 
 	return (
