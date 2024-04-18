@@ -8,6 +8,7 @@ import Header from "components/Header";
 import PcpFeed from "components/PcpFeed";
 import UpdatesFeed from "components/UpdatesFeed";
 
+import CommentPeriods from "./CommentPeriods";
 import Documents from "./Documents";
 import Projects from "./Projects";
 
@@ -15,12 +16,26 @@ import { HOME_TAB_KEYS, HOME_TABS } from "constants/home";
 
 const useStyles = makeStyles()((theme) => ({
 	selectedTab: {
-		backgroundColor: theme.palette.primary.dark,
+		background: `radial-gradient(circle, #145185 0%, #152D46 100%) !important`,
+		backgroundAttachment: "fixed !important",
 		borderRadius: "0.25rem 0.25rem 0 0",
 		color: `${theme.palette.common.white} !important`,
 	},
 	tabs: {
 		paddingLeft: "3rem",
+		minHeight: "2rem",
+		"& .MuiTabs-indicator": {
+			display: "none",
+		},
+		"& .MuiTabs-flexContainer": {
+			gap: "0.625rem",
+		},
+		"& button": {
+			background: "#f6f9fc",
+			borderRadius: "0.25rem 0.25rem 0 0",
+			minHeight: "2rem",
+			height: "2rem",
+		},
 	},
 	feed: {
 		background: "#F6F9FC",
@@ -33,6 +48,7 @@ const Home = () => {
 	const { classes } = useStyles();
 
 	const [selectedTab, setSelectedTab] = useState(HOME_TAB_KEYS.PROJECTS);
+	const [showUpdates, setShowUpdates] = useState(true);
 
 	return (
 		<div>
@@ -50,16 +66,18 @@ const Home = () => {
 			<div role="tabpanel">
 				{selectedTab === HOME_TAB_KEYS.PROJECTS ? (
 					<div>
-						<Projects />
-						<div className={classes.feed}>
-							<UpdatesFeed setSelectedTab={setSelectedTab} />
-							<PcpFeed onSelectTab={setSelectedTab}></PcpFeed>
-						</div>
+						<Projects onShowUpdates={setShowUpdates} />
+						{showUpdates && (
+							<div className={classes.feed}>
+								<UpdatesFeed onSelectTab={setSelectedTab} />
+								<PcpFeed onSelectTab={setSelectedTab}></PcpFeed>
+							</div>
+						)}
 					</div>
 				) : selectedTab === HOME_TAB_KEYS.DOCUMENTS ? (
 					<Documents />
 				) : selectedTab === HOME_TAB_KEYS.PUBLIC_COMMENT_PERIODS ? (
-					<div>public comment periods</div>
+					<CommentPeriods />
 				) : selectedTab === HOME_TAB_KEYS.UPDATES ? (
 					<div>updates</div>
 				) : selectedTab === HOME_TAB_KEYS.MAP ? (

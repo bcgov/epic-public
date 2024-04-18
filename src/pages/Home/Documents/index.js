@@ -10,7 +10,10 @@ const Documents = () => {
 	return (
 		<div>
 			<SearchProvider tabKey={HOME_TAB_KEYS.DOCUMENTS}>
-				<Search />
+				<Search
+					title="Documents"
+					placeholder="Search by keywords for Document Types, Document Author, Date Range, and Project Phase"
+				/>
 				<DocumentResults />
 			</SearchProvider>
 		</div>

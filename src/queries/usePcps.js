@@ -3,22 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { MILLISECONDS_IN_HOUR } from "./constants";
 import { getPcps } from "./endpoints";
 
-import { formatDateOnlyISO } from "services/date";
-
 const cacheKey = "pcps";
 
-const queryPcps = async ({ queryKey: [_, isoDate] }) => {
-	const { data } = await getPcps(isoDate);
+const queryPcps = async ({ queryKey: [_, searchTerm, selectedFilters, tableParameters] }) => {
+	const { data } = await getPcps(searchTerm, selectedFilters, tableParameters);
 	return data;
 };
 
-const usePcps = (date, { enabled = true } = {}) => {
-	const isoDate = formatDateOnlyISO(date);
-
+const usePcps = (searchTerm, selectedFilters, tableParameters, { enabled = true } = {}) => {
 	const pcpQuery = useQuery({
-		enabled: !!isoDate && !!enabled,
+		enabled: !!enabled,
 		queryFn: queryPcps,
-		queryKey: [cacheKey, isoDate],
+		queryKey: [cacheKey, searchTerm, selectedFilters, tableParameters],
 		staleTime: MILLISECONDS_IN_HOUR,
 	});
 	return pcpQuery;

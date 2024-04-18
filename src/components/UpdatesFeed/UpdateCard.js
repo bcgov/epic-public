@@ -4,10 +4,13 @@ import { makeStyles } from "tss-react/mui";
 
 import Button from "@mui/material/Button";
 
-import { getProjectIcon } from "../services";
-import ReadMoreButton from "./ReadMoreButton";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import { getProjectIcon } from "./services";
 
 import { formatDateLongMonth } from "services/date";
+import { getPcpPath } from "services/url";
 
 const useStyles = makeStyles()((theme) => ({
 	container: {
@@ -56,6 +59,14 @@ const useStyles = makeStyles()((theme) => ({
 		WebkitLineClamp: "2",
 		WebkitBoxOrient: "vertical",
 	},
+	readMore: {
+		display: "flex",
+		alignItems: "center",
+		"& svg": {
+			color: "#234075",
+			fontSize: "2rem",
+		},
+	},
 	footer: {
 		display: "flex",
 		flexWrap: "wrap-reverse",
@@ -92,11 +103,7 @@ const UpdateCard = ({ documentUrl, pcp, project, updateContent, updateDate, upda
 	const formattedDate = formatDateLongMonth(updateDate);
 
 	const isSingleDoc = documentUrl && !documentUrl.includes("docs?folder");
-	const pcpUrl = pcp ? (pcp.isMet && pcp.metURL ? pcp.metURL : `/p/${project._id}/cp/${pcp._id}`) : "";
-
-	const handleReadMore = () => {
-		setExpanded((isExpanded) => !isExpanded);
-	};
+	const pcpUrl = pcp ? (pcp.isMet && pcp.metURL ? pcp.metURL : getPcpPath(pcp._id, project._id)) : "";
 
 	// Set Read More button
 	useEffect(() => {
@@ -152,7 +159,14 @@ const UpdateCard = ({ documentUrl, pcp, project, updateContent, updateDate, upda
 							</a>
 						)}
 					</div>
-					{(isClamped || isExpanded) && <ReadMoreButton onClick={handleReadMore} expanded={isExpanded} />}
+					{(isClamped || isExpanded) && (
+						<Button onClick={() => setExpanded((isExpanded) => !isExpanded)} variant="text">
+							<span className={classes.readMore}>
+								{isExpanded ? "Read Less" : "Read More"}
+								{isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+							</span>
+						</Button>
+					)}
 				</div>
 			</div>
 		</div>

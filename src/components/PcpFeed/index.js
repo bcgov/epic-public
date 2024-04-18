@@ -9,7 +9,7 @@ import usePcps from "queries/usePcps";
 import PcpCard from "./PcpCard";
 import pcpImage from "./pcpImage.jpeg";
 
-import { subtractDays } from "services/date";
+import { formatDateOnlyISO, subtractDays } from "services/date";
 
 import { HOME_TAB_KEYS } from "constants/home";
 
@@ -84,9 +84,22 @@ const useStyles = makeStyles()((theme) => ({
 const PcpFeed = ({ onSelectTab }) => {
 	const { classes } = useStyles();
 
-	const thirtyDaysAgo = subtractDays(new Date(), 30);
+	const thirtyDaysAgo = formatDateOnlyISO(subtractDays(new Date(), 30));
+	const recentPcpsFilter = [
+		{
+			filterKey: "pcpRecent",
+			key: thirtyDaysAgo,
+		},
+	];
+	const recentTableParams = {
+		pageSize: 1000,
+		sortBy: {
+			order: "desc",
+			orderBy: "dateStarted",
+		},
+	};
 
-	const { data = [{ searchResults: [] }] } = usePcps(thirtyDaysAgo);
+	const { data = [{ searchResults: [] }] } = usePcps("", recentPcpsFilter, recentTableParams, { enabled: true });
 	const pcps = useMemo(
 		() =>
 			data[0].searchResults.map(({ _id, dateCompleted, dateStarted, project }) => ({

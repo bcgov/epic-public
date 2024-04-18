@@ -19,6 +19,8 @@ const useStyles = makeStyles()((theme, { width }) => ({
 	menuButton: {
 		alignItems: "center",
 		background: theme.palette.common.white,
+		border: "1px",
+		borderRadius: "0.25rem",
 		color: theme.palette.grey.dark,
 		display: "flex",
 		fontSize: "1rem",
@@ -38,10 +40,18 @@ const useStyles = makeStyles()((theme, { width }) => ({
 		"&:disabled": {
 			opacity: 0.7,
 		},
+		"&.base--expanded": {
+			borderBottom: "none",
+			borderRadius: "0.25rem 0.25rem 0 0",
+		},
 	},
 	menu: {
 		background: theme.palette.common.white,
 		boxShadow: "2px 6px 8px 0px #0000001A",
+		border: "1px solid #EEEEEE",
+		borderRadius: "0 0 0.25rem 0.25rem",
+		maxHeight: "500px",
+		overflowY: "auto",
 		width: width,
 		"& ul": {
 			listStyleType: "none",
@@ -91,8 +101,9 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 		onChange(items.filter(({ key }) => keys.includes(key)));
 	}, [items, keys, onChange]);
 
-	const onSelect = (key) =>
+	const onSelect = (key) => {
 		setKeys((keys) => (keys.includes(key) ? keys.filter((val) => val !== key) : [...keys, key]));
+	};
 
 	const onToggle = () => setOpen((val) => !val);
 

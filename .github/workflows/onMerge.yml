@@ -1,0 +1,14 @@
+name: Webhook on Merge to Default Branch
+
+on:
+  push:
+    branches:
+      - develop # replace with your default branch name
+
+jobs:
+  webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Webhook Openshift Build
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Merge occurred on default branch"}' ${{ secrets.WEBHOOK_URL }}

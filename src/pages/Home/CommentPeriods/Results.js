@@ -1,16 +1,16 @@
-import PropTypes from "prop-types";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useState } from "react";
 import { makeStyles } from "tss-react/mui";
 
 import { useSearch } from "contexts/Search";
 
-import useProjects from "queries/useProjects";
+import usePcps from "queries/usePcps";
 
 import Results from "components/Results";
 
 import { formatDateLongMonth } from "services/date.js";
-import { getProjectPath } from "services/url";
+import { getStatus } from "services/pcp";
+import { getPcpPath, getProjectPath } from "services/url";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles()((theme) => ({
 	},
 }));
 
-const ProjectResults = ({ onSearch }) => {
+const CommentPeriodResults = () => {
 	const { isSearching, searchTerm, selectedFilters } = useSearch();
 	const [order, setOrder] = useState(TABLE_DEFAULTS.DEFAULT_SORT.DEFAULT_ORDER);
 	const [orderBy, setOrderBy] = useState(TABLE_DEFAULTS.DEFAULT_SORT.DEFAULT_ORDER_BY);
@@ -30,34 +30,26 @@ const ProjectResults = ({ onSearch }) => {
 	const { classes } = useStyles();
 	const tableColumns = [
 		{
-			name: "Name",
-			value: "name",
-			sortName: "name",
+			name: "Project Name",
+			value: "projectName",
+			sortName: "project.name",
+			isLink: true,
+			linkValue: "projectLink",
 		},
 		{
-			name: "Proponent",
-			value: "proponent",
-			sortName: "proponent.name",
+			name: "Project Phase",
+			value: "phaseName",
+			sortName: "phaseName",
 		},
 		{
-			name: "Type",
-			value: "type",
-			sortName: "type",
+			name: "Public-Comment Period Date",
+			value: "dateRange",
+			sortName: "dateStarted",
 		},
 		{
-			name: "Date",
-			value: "dateUpdated",
-			sortName: "dateUpdated",
-		},
-		{
-			name: "Region",
-			value: "region",
-			sortName: "region",
-		},
-		{
-			name: "Phase",
-			value: "currentPhaseName",
-			sortName: "currentPhaseName.name",
+			name: "Status",
+			value: "status",
+			sortName: "dateStarted",
 		},
 	];
 
@@ -70,7 +62,7 @@ const ProjectResults = ({ onSearch }) => {
 		},
 	};
 
-	const { data = [{ searchResults: [], meta: [{ searchResultsTotal: 0 }] }] } = useProjects(
+	const { data = [{ searchResults: [], meta: [{ searchResultsTotal: 0 }] }] } = usePcps(
 		searchTerm,
 		selectedFilters,
 		tableParameters,
@@ -79,25 +71,20 @@ const ProjectResults = ({ onSearch }) => {
 
 	const projects = useMemo(
 		() =>
-			data[0].searchResults.map(({ _id, currentPhaseName, dateUpdated, name, proponent, region, type }) => ({
-				currentPhaseName: currentPhaseName.name,
-				dateUpdated: formatDateLongMonth(new Date(dateUpdated)),
+			data[0].searchResults.map(({ _id, dateCompleted, dateStarted, phaseName, project }) => ({
+				dateRange: `${formatDateLongMonth(new Date(dateStarted))} - ${formatDateLongMonth(new Date(dateCompleted))}`,
 				key: _id,
-				name,
-				proponent: proponent.name,
-				region,
-				type,
+				phaseName,
+				projectId: project._id,
+				projectLink: getProjectPath(project._id),
+				projectName: project.name,
+				status: getStatus(dateStarted, dateCompleted),
 			})),
 		[data],
 	);
 
 	const metaData = useMemo(() => data[0].meta, [data]);
-
-	useEffect(() => {
-		onSearch(isSearching);
-		setPageSize(TABLE_DEFAULTS.DEFAULT_PAGE_SIZE);
-		setPageNum(TABLE_DEFAULTS.DEFAULT_CURRENT_PAGE);
-	}, [isSearching, onSearch]);
+	const totalResultCount = metaData.length > 0 ? metaData[0].searchResultsTotal : 0;
 
 	return (
 		<div className={classes.container}>
@@ -105,7 +92,7 @@ const ProjectResults = ({ onSearch }) => {
 				<Results
 					columns={tableColumns}
 					data={projects}
-					onRowClick={(row) => window.open(getProjectPath(row.key))}
+					onRowClick={(row) => window.open(getPcpPath(row.projectId, row.key))}
 					order={order}
 					orderBy={orderBy}
 					pageNum={pageNum}
@@ -114,15 +101,11 @@ const ProjectResults = ({ onSearch }) => {
 					setOrderBy={setOrderBy}
 					setPageNum={setPageNum}
 					setPageSize={setPageSize}
-					totalResultCount={metaData.length > 0 ? metaData[0].searchResultsTotal : 0}
+					totalResultCount={totalResultCount}
 				/>
 			)}
 		</div>
 	);
 };
 
-ProjectResults.propTypes = {
-	onSearch: PropTypes.func.isRequired,
-};
-
-export default ProjectResults;
+export default CommentPeriodResults;
