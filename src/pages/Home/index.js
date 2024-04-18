@@ -9,6 +9,7 @@ import PcpFeed from "components/PcpFeed";
 import UpdatesFeed from "components/UpdatesFeed";
 
 import CommentPeriods from "./CommentPeriods";
+import Documents from "./Documents";
 import Projects from "./Projects";
 
 import { HOME_TAB_KEYS, HOME_TABS } from "constants/home";
@@ -74,7 +75,9 @@ const Home = () => {
 						)}
 					</div>
 				) : selectedTab === HOME_TAB_KEYS.DOCUMENTS ? (
-					<div>search documents</div>
+					<div>
+						<Documents />
+					</div>
 				) : selectedTab === HOME_TAB_KEYS.PUBLIC_COMMENT_PERIODS ? (
 					<CommentPeriods />
 				) : selectedTab === HOME_TAB_KEYS.UPDATES ? (

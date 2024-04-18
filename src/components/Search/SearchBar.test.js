@@ -19,14 +19,12 @@ describe("SearchBar tests", () => {
 	});
 
 	test("should render the search input and search button", () => {
-		render(<SearchBar />);
+		const placeholder = "Search by keywords for Project Name, Project Type, Project Region, and Proponent";
+		render(<SearchBar placeholder={placeholder} />);
 
 		const searchInput = screen.getByRole("textbox");
 		expect(searchInput).toBeInTheDocument();
-		expect(searchInput).toHaveAttribute(
-			"placeholder",
-			"Search by keywords for Project Name, Project Type, Project Region, and Proponent",
-		);
+		expect(searchInput).toHaveAttribute("placeholder", placeholder);
 
 		expect(screen.getByRole("button", { name: "Search" })).toBeInTheDocument();
 	});

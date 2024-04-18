@@ -94,6 +94,8 @@ const ProjectResults = ({ onSearch }) => {
 
 	useEffect(() => {
 		onSearch(isSearching);
+		setPageSize(TABLE_DEFAULTS.DEFAULT_PAGE_SIZE);
+		setPageNum(TABLE_DEFAULTS.DEFAULT_CURRENT_PAGE);
 	}, [isSearching, onSearch]);
 
 	return (
@@ -102,6 +104,7 @@ const ProjectResults = ({ onSearch }) => {
 				<Results
 					columns={tableColumns}
 					data={projects}
+					onRowClick={(row) => window.open(`/p/${row.key}/project-details`)}
 					order={order}
 					orderBy={orderBy}
 					pageNum={pageNum}

@@ -19,6 +19,8 @@ export const getFilterComponent = (filterKey) => {
 			return <DocumentAuthorsFilter key={filterKey} />;
 		case FILTER_KEYS.DOCUMENT_TYPES:
 			return <DocumentTypesFilter key={filterKey} />;
+		case FILTER_KEYS.DOCUMENT_PROJECT_PHASES:
+			return <ProjectPhasesFilter key={filterKey} filterKey={filterKey} />;
 		case FILTER_KEYS.PCP_PROJECT_PHASES:
 			return <PcpPhaseFilter key={filterKey} />;
 		case FILTER_KEYS.PROJECT_PHASES:

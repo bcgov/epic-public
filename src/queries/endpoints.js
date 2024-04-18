@@ -2,7 +2,7 @@ import api from "services/api";
 
 import { API_FILTER_KEYS } from "constants/filters";
 
-const apiConfig = {
+export const apiConfig = {
 	url:
 		process.env.REACT_APP_API ||
 		localStorage.getItem("from_public_server--remote_api_path") ||
@@ -43,6 +43,15 @@ const parseTableParams = (tableParameters) => {
 	return paramsAsString;
 };
 
+export const getDocuments = (keywords, filters, tableParameters) => {
+	return api.get(
+		apiConfig,
+		`/search?dataset=Document&keywords=${keywords}&projectLegislation=default&populate=true&and[documentSource]=PROJECT&fuzzy=true${parseTableParams(
+			tableParameters,
+		)}${parseFilters(filters)}`,
+	);
+};
+
 export const getLists = () => {
 	return api.get(apiConfig, `/search?dataset=List&pageSize=1000`);
 };
@@ -62,7 +71,6 @@ export const getPcps = (keywords, filters, tableParameters) => {
 };
 
 export const getProjects = (keywords, filters, tableParameters) => {
-	parseTableParams(tableParameters);
 	return api.get(
 		apiConfig,
 		`/search?dataset=Project&keywords=${keywords}&projectLegislation=default&populate=true&fuzzy=true${parseTableParams(

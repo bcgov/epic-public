@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useMemo } from "react";
 
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
@@ -8,6 +9,8 @@ import useLists from "queries/useLists";
 
 import Filter from "components/Filter";
 
+import { LIST_TYPE_FILTER_KEYS } from "constants/filters";
+
 const ProjectPhasesFilter = ({ filterKey }) => {
 	const { onFilterChange, selectedFilters } = useSearch();
 
@@ -15,7 +18,7 @@ const ProjectPhasesFilter = ({ filterKey }) => {
 
 	const items = useMemo(() => {
 		return data[0].searchResults
-			.filter((item) => item.type === "projectPhase")
+			.filter((item) => item.type === LIST_TYPE_FILTER_KEYS[filterKey])
 			.reduce((acc, item) => {
 				const existingItem = acc.find((i) => i.description === item.name);
 				if (existingItem) {
@@ -50,6 +53,10 @@ const ProjectPhasesFilter = ({ filterKey }) => {
 			title="Project Phases"
 		/>
 	);
+};
+
+ProjectPhasesFilter.propTypes = {
+	filterKey: PropTypes.string,
 };
 
 export default ProjectPhasesFilter;

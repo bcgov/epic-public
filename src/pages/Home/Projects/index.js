@@ -12,7 +12,10 @@ const Projects = ({ onShowUpdates }) => {
 	return (
 		<div>
 			<SearchProvider tabKey={HOME_TAB_KEYS.PROJECTS}>
-				<Search title="Projects" />
+				<Search
+					placeholder="Search by keywords for Project Name, Project Type, Project Region, and Proponent"
+					title="Projects"
+				/>
 				<ProjectResults onSearch={(searching) => onShowUpdates(!searching)} />
 			</SearchProvider>
 		</div>
