@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -11,8 +10,8 @@ import useLists from "queries/useLists";
 
 import Results from "components/Results";
 
-import { formatDateLongMonth } from "services/date.js";
-import { encodeString } from "services/url";
+import { formatDateLongMonth } from "services/date";
+import { getDocumentDownloadLink, getProjectPath } from "services/url";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 
@@ -104,18 +103,6 @@ const DocumentResults = () => {
 			return constant ? constant.name : "";
 		};
 
-		const getDownloadLink = (displayName, documentFileName, id, internalOriginalName) => {
-			const filename = documentFileName || displayName || internalOriginalName;
-			let encodedName = "";
-			try {
-				encodedName = encodeString(filename, true);
-			} catch (e) {
-				console.log("error:", e);
-			}
-			const apiPath = process.env.REACT_APP_API || localStorage.getItem("from_public_server--remote_api_path");
-			return apiPath + `/download/${id}/download/${encodedName}`;
-		};
-
 		return documentsData[0].searchResults.map(
 			({
 				_id,
@@ -132,10 +119,10 @@ const DocumentResults = () => {
 				displayName,
 				documentAuthorType: getConstant(documentAuthorType),
 				downloadIcon: <FileDownloadOutlinedIcon />,
-				downloadLink: getDownloadLink(displayName, documentFileName, _id, internalOriginalName),
+				downloadLink: getDocumentDownloadLink(displayName, documentFileName, _id, internalOriginalName),
 				key: _id,
 				project: project.name,
-				projectLink: `/p/${project._id}/project-details`,
+				projectLink: getProjectPath(project._id),
 				projectPhase: getConstant(projectPhase),
 				type: getConstant(type),
 			}),
@@ -143,7 +130,11 @@ const DocumentResults = () => {
 	}, [documentsData, constantList]);
 
 	const metaData = useMemo(() => documentsData[0].meta, [documentsData]);
-	const totalResultCount = metaData.length > 0 ? metaData[0].searchResultsTotal : 0;
+
+	useEffect(() => {
+		setPageSize(TABLE_DEFAULTS.DEFAULT_PAGE_SIZE);
+		setPageNum(TABLE_DEFAULTS.DEFAULT_CURRENT_PAGE);
+	}, [isSearching]);
 
 	return (
 		<div className={classes.container}>
@@ -160,7 +151,7 @@ const DocumentResults = () => {
 					setOrderBy={setOrderBy}
 					setPageNum={setPageNum}
 					setPageSize={setPageSize}
-					totalResultCount={totalResultCount}
+					totalResultCount={metaData.length > 0 ? metaData[0].searchResultsTotal : 0}
 				/>
 			)}
 		</div>

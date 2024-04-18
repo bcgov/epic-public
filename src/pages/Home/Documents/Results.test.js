@@ -2,6 +2,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { useSearch } from "contexts/Search";
 
+import { apiConfig } from "queries/endpoints";
 import useDocuments from "queries/useDocuments";
 import useLists from "queries/useLists";
 
@@ -104,10 +105,9 @@ describe("DocumentResults tests", () => {
 
 		const downloadIcon = within(row).getByTestId("FileDownloadOutlinedIcon");
 		expect(downloadIcon).toBeInTheDocument();
-		const apiPath = process.env.REACT_APP_API || localStorage.getItem("from_public_server--remote_api_path");
 		expect(downloadIcon.closest("a")).toHaveAttribute(
 			"href",
-			`${apiPath}/download/${mockDocumentsData.searchResults[0]._id}/download/${mockDocumentsData.searchResults[0].documentFileName}`,
+			`${apiConfig.url}/download/${mockDocumentsData.searchResults[0]._id}/download/${mockDocumentsData.searchResults[0].documentFileName}`,
 		);
 
 		const projectLink = within(row).getByRole("link", { name: mockDocumentsData.searchResults[0].project.name });
@@ -124,9 +124,8 @@ describe("DocumentResults tests", () => {
 		expect(tableRows.length).toBe(1 + mockDocumentsData.meta[0].searchResultsTotal); // header and document row
 
 		fireEvent.click(tableRows[1]);
-		const apiPath = process.env.REACT_APP_API || localStorage.getItem("from_public_server--remote_api_path");
 		expect(window.open).toHaveBeenCalledWith(
-			`${apiPath}/download/${mockDocumentsData.searchResults[0]._id}/download/${mockDocumentsData.searchResults[0].documentFileName}`,
+			`${apiConfig.url}/download/${mockDocumentsData.searchResults[0]._id}/download/${mockDocumentsData.searchResults[0].documentFileName}`,
 			"_blank",
 		);
 	});

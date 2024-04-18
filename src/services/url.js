@@ -1,27 +1,19 @@
-const encodeFilename = (filename) => {
-	const regex = /[()\\/ ]/g;
-	return filename.replace(regex, (match) => {
-		switch (match) {
-			case "(":
-				return "%28";
-			case ")":
-				return "%29";
-			case "\\":
-				return "_";
-			case "/":
-				return "_";
-			case " ":
-				return "_";
-			default:
-				return match;
-		}
-	});
-};
-
-const encodeUrl = (url) => {
-	return encodeURIComponent(url).replace(/[!'()*]/g, (c) => `%${c.charCodeAt(0).toString(16)}`);
-};
+import { apiConfig } from "queries/endpoints";
 
 export const encodeString = (filename, isUrl) => {
-	return isUrl ? encodeUrl(filename) : encodeFilename(filename);
+	if (isUrl) {
+		return encodeURI(filename);
+	} else {
+		return encodeURIComponent(filename);
+	}
+};
+
+export const getDocumentDownloadLink = (displayName, documentFileName, documentId, internalOriginalName) => {
+	const filename = documentFileName || displayName || internalOriginalName;
+	const encodedName = encodeString(filename, true);
+	return `${apiConfig.url}/download/${documentId}/download/${encodedName}`;
+};
+
+export const getProjectPath = (projectId) => {
+	return `/p/${projectId}/project-details`;
 };

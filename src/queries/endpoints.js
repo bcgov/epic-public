@@ -2,7 +2,7 @@ import api from "services/api";
 
 import { API_FILTER_KEYS } from "constants/filters";
 
-const apiConfig = {
+export const apiConfig = {
 	url:
 		process.env.REACT_APP_API ||
 		localStorage.getItem("from_public_server--remote_api_path") ||
