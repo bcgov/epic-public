@@ -53,12 +53,13 @@ const useStyles = makeStyles()((theme, { width }) => ({
 		border: "1px solid #EEEEEE",
 		borderRadius: "0.25rem",
 		width: width,
-		minWidth: "600px",
+		minWidth: "595px",
 		overflowY: "auto",
 		maxHeight: "500px",
 		"& ul": {
 			listStyleType: "none",
 			padding: 0,
+			margin: 0,
 		},
 	},
 }));

@@ -13,14 +13,16 @@ import { FILTER_KEYS } from "constants/filters";
 
 export const getFilterComponent = (filterKey) => {
 	switch (filterKey) {
-		case FILTER_KEYS.DATE_RANGE:
-			return <DateRangeFilter key={filterKey} />;
 		case FILTER_KEYS.DOCUMENT_AUTHORS:
 			return <DocumentAuthorsFilter key={filterKey} />;
+		case FILTER_KEYS.DOCUMENT_DATE_RANGE:
+			return <DateRangeFilter key={filterKey} filterKey={filterKey} />;
 		case FILTER_KEYS.DOCUMENT_TYPES:
 			return <DocumentTypesFilter key={filterKey} />;
 		case FILTER_KEYS.DOCUMENT_PROJECT_PHASES:
 			return <ProjectPhasesFilter key={filterKey} filterKey={filterKey} />;
+		case FILTER_KEYS.PCP_DATE_RANGE:
+			return <DateRangeFilter key={filterKey} filterKey={filterKey} />;
 		case FILTER_KEYS.PCP_PROJECT_PHASES:
 			return <PcpPhaseFilter key={filterKey} />;
 		case FILTER_KEYS.PROJECT_PHASES:

@@ -1,4 +1,5 @@
 import api from "services/api";
+import { encodeString } from "services/url";
 
 import { API_FILTER_KEYS } from "constants/filters";
 
@@ -10,10 +11,20 @@ export const apiConfig = {
 };
 
 const parseFilters = (filters) => {
-	let filterAsString = ``;
+	let filterAsString = "";
 	filters.forEach((filter) => {
 		const apiFilterKey = API_FILTER_KEYS[filter.filterKey];
-		filter.key.split(",").forEach((value) => (filterAsString += `&and[${apiFilterKey}]=${value}`));
+		if (apiFilterKey.isDateRange) {
+			filter.key
+				.split(",")
+				.forEach(
+					(value, ind) => (filterAsString += `&and[${apiFilterKey.apiKeys[ind]}]=${encodeString(value, false)}`),
+				);
+		} else {
+			filter.key.split(",").forEach((value) => {
+				filterAsString += `&and[${apiFilterKey}]=${encodeString(value, false)}`;
+			});
+		}
 	});
 	return filterAsString;
 };
@@ -61,7 +72,6 @@ export const getOrganizations = (type) => {
 };
 
 export const getPcps = (keywords, filters, tableParameters) => {
-	parseTableParams(tableParameters);
 	return api.get(
 		apiConfig,
 		`/search?dataset=CommentPeriod&keywords=${keywords}&populate=true&fuzzy=true${parseTableParams(

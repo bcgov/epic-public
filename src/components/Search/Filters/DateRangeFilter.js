@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useMemo, useState } from "react";
 
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
@@ -30,6 +31,10 @@ const DateRangeFilter = ({ filterKey }) => {
 			title="Date Range"
 		/>
 	);
+};
+
+DateRangeFilter.propTypes = {
+	filterKey: PropTypes.string.isRequired,
 };
 
 export default DateRangeFilter;

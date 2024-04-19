@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme) => ({
 			fontSize: "1rem",
 			borderRadius: "0.25rem",
 		},
-		"& .documentProjectPhases, .projectPhases": {
+		"& .documentProjectPhases, .pcpProjectPhases, .projectPhases": {
 			color: "#323130",
 			backgroundColor: "#F1F8FF",
 			"& svg": {
@@ -49,16 +49,16 @@ const useStyles = makeStyles()((theme) => ({
 				color: "#053662",
 			},
 		},
-		"& .dateRange, .proponents": {
+		"& .documentDateRange, .pcpDateRange, .proponents": {
 			color: "#593F00",
 			backgroundColor: "#FFF8E8",
 			"& svg": {
 				color: "#593F00",
 			},
 		},
-		"& .documentTypes, .status, .type": {
+		"& .documentTypes, .projectTypes, .status": {
 			color: "#553402",
-			backgroundColor: "#ffe095",
+			backgroundColor: "#FFE095",
 			"& svg": {
 				color: "#553402",
 			},

@@ -6,14 +6,31 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 
+import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
+
 import RangeDay from "./RangeDay";
 
 import { addDays, formatDateLongMonth, subtractDays } from "services/date";
 
 const useStyles = makeStyles()(() => ({
 	label: {
+		borderBottom: "1px solid #E9EAEC",
 		display: "flex",
 		justifyContent: "space-around",
+		padding: "1rem 0 1rem 0",
+		position: "relative",
+		"& svg": {
+			color: "#6d6d6d",
+			position: "absolute",
+			textAlign: "center",
+		},
+	},
+	calendars: {
+		alignItems: "center",
+		display: "flex",
+	},
+	calendarEnd: {
+		borderLeft: "1px solid #E9EAEC",
 	},
 }));
 
@@ -35,51 +52,55 @@ const DateRangePicker = ({ endDate, setEndDate, setStartDate, startDate }) => {
 	};
 
 	return (
-		<LocalizationProvider dateAdapter={AdapterDateFns}>
-			{startDate && endDate && (
-				<div aria-label="Date range label" className={classes.label}>
-					<div>{`${formatDateLongMonth(startDate)}`}</div>
-					<div>{`${formatDateLongMonth(endDate)}`}</div>
-				</div>
-			)}
-			<Box display="flex" alignItems="center" gap={2}>
-				<DateCalendar
-					aria-label="Select start date"
-					onChange={handleStartDateChange}
-					showDaysOutsideCurrentMonth
-					slots={{
-						day: RangeDay,
-					}}
-					slotProps={{
-						day: {
-							endDate: endDate,
-							rangeBoundary: startDate,
-							startDate: startDate,
-						},
-					}}
-					value={startDate}
-					views={["year", "month", "day"]}
-				/>
-				<DateCalendar
-					aria-label="Select end date"
-					minDate={startDate}
-					onChange={handleEndDateChange}
-					showDaysOutsideCurrentMonth
-					slots={{
-						day: RangeDay,
-					}}
-					slotProps={{
-						day: {
-							endDate: endDate,
-							rangeBoundary: endDate,
-							startDate: startDate,
-						},
-					}}
-					value={endDate}
-					views={["year", "month", "day"]}
-				/>
-			</Box>
-		</LocalizationProvider>
+		<div className={classes.container}>
+			<LocalizationProvider dateAdapter={AdapterDateFns}>
+				{startDate && endDate && (
+					<div aria-label="Date range label" className={classes.label}>
+						<div>{`${formatDateLongMonth(startDate)}`}</div>
+						<TrendingFlatIcon />
+						<div>{`${formatDateLongMonth(endDate)}`}</div>
+					</div>
+				)}
+				<Box className={classes.calendars}>
+					<DateCalendar
+						aria-label="Select start date"
+						onChange={handleStartDateChange}
+						showDaysOutsideCurrentMonth
+						slots={{
+							day: RangeDay,
+						}}
+						slotProps={{
+							day: {
+								endDate: endDate,
+								rangeBoundary: startDate,
+								startDate: startDate,
+							},
+						}}
+						value={startDate}
+						views={["year", "month", "day"]}
+					/>
+					<DateCalendar
+						aria-label="Select end date"
+						className={classes.calendarEnd}
+						minDate={startDate}
+						onChange={handleEndDateChange}
+						showDaysOutsideCurrentMonth
+						slots={{
+							day: RangeDay,
+						}}
+						slotProps={{
+							day: {
+								endDate: endDate,
+								rangeBoundary: endDate,
+								startDate: startDate,
+							},
+						}}
+						value={endDate}
+						views={["year", "month", "day"]}
+					/>
+				</Box>
+			</LocalizationProvider>
+		</div>
 	);
 };
 

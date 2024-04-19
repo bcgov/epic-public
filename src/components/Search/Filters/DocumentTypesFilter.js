@@ -40,8 +40,6 @@ const DocumentTypesFilter = () => {
 			}));
 	}, [data]);
 
-	console.log("items", items);
-
 	const selected = useMemo(() => selectedFilters.filter(({ filterKey: fk }) => fk === filterKey), [selectedFilters]);
 
 	return (
