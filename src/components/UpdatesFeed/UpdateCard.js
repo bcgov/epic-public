@@ -10,7 +10,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getProjectIcon } from "./services";
 
 import { formatDateLongMonth } from "services/date";
-import { getPcpPath } from "services/url";
+import { getPcpPath } from "services/navigation";
 
 const useStyles = makeStyles()((theme) => ({
 	container: {

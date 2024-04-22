@@ -10,7 +10,7 @@ import useProjects from "queries/useProjects";
 import Results from "components/Results";
 
 import { formatDateLongMonth } from "services/date.js";
-import { getProjectPath } from "services/url";
+import { getProjectPath } from "services/navigation";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 

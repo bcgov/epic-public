@@ -11,7 +11,7 @@ import useLists from "queries/useLists";
 import Results from "components/Results";
 
 import { formatDateLongMonth } from "services/date";
-import { getDocumentDownloadLink, getProjectPath } from "services/url";
+import { getDocumentDownloadLink, getProjectPath } from "services/navigation";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 

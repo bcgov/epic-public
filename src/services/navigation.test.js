@@ -1,14 +1,9 @@
 import { apiConfig } from "queries/endpoints";
 
-import { encodeString, getDocumentDownloadLink, getPcpPath, getProjectPath } from "./url";
+import { getDocumentDownloadLink, getPcpPath, getProjectPath } from "./navigation";
+import { encodeString } from "./utils";
 
 describe("Url services test", () => {
-	describe("encodeString", () => {
-		test("encodes URL when isUrl is true", () => {
-			expect(encodeString("Hello World!", true)).toBe("Hello%20World!");
-		});
-	});
-
 	describe("getDocumentDownloadLink tests", () => {
 		test("returns a valid download link", () => {
 			const displayName = "Document 1";

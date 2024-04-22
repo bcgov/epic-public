@@ -9,8 +9,8 @@ import usePcps from "queries/usePcps";
 import Results from "components/Results";
 
 import { formatDateLongMonth } from "services/date.js";
+import { getPcpPath, getProjectPath } from "services/navigation";
 import { getStatus } from "services/pcp";
-import { getPcpPath, getProjectPath } from "services/url";
 
 import { TABLE_DEFAULTS } from "constants/filters";
 

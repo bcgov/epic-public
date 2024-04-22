@@ -1,12 +1,6 @@
 import { apiConfig } from "queries/endpoints";
 
-export const encodeString = (filename, isUrl) => {
-	if (isUrl) {
-		return encodeURI(filename);
-	} else {
-		return encodeURIComponent(filename);
-	}
-};
+import { encodeString } from "./utils";
 
 export const getDocumentDownloadLink = (displayName, documentFileName, documentId, internalOriginalName) => {
 	const filename = documentFileName || displayName || internalOriginalName;
