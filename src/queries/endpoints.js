@@ -26,7 +26,6 @@ export const getOrganizations = (type) => {
 };
 
 export const getPcps = (keywords, filters, tableParameters) => {
-	parseTableParams(tableParameters);
 	return api.get(
 		apiConfig,
 		`/search?dataset=CommentPeriod&keywords=${keywords}&populate=true&fuzzy=true${parseTableParams(

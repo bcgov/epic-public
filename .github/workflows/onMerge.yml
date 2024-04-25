@@ -3,7 +3,7 @@ name: Webhook on Merge to Default Branch
 on:
   push:
     branches:
-      - develop  # replace with your default branch name
+      - develop # replace with your default branch name
 
 jobs:
   webhook:

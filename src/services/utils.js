@@ -9,10 +9,20 @@ export const encodeString = (filename, isUrl) => {
 };
 
 export const parseFilters = (filters) => {
-	let filterAsString = ``;
+	let filterAsString = "";
 	filters.forEach((filter) => {
 		const apiFilterKey = API_FILTER_KEYS[filter.filterKey];
-		filter.key.split(",").forEach((value) => (filterAsString += `&and[${apiFilterKey}]=${value}`));
+		if (apiFilterKey.isDateRange) {
+			filter.key
+				.split(",")
+				.forEach(
+					(value, ind) => (filterAsString += `&and[${apiFilterKey.apiKeys[ind]}]=${encodeString(value, false)}`),
+				);
+		} else {
+			filter.key.split(",").forEach((value) => {
+				filterAsString += `&and[${apiFilterKey}]=${encodeString(value, false)}`;
+			});
+		}
 	});
 	return filterAsString;
 };

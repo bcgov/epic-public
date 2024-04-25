@@ -1,9 +1,9 @@
 export const FILTER_KEYS = {
-	DATE_RANGE: "dateRange",
 	DOCUMENT_DATE_RANGE: "documentDateRange",
 	DOCUMENT_AUTHORS: "documentAuthors",
 	DOCUMENT_PROJECT_PHASES: "documentProjectPhases",
 	DOCUMENT_TYPES: "documentTypes",
+	PCP_DATE_RANGE: "pcpDateRange",
 	PCP_PROJECT_PHASES: "pcpProjectPhases",
 	PCP_RECENT: "pcpRecent",
 	PROJECT_PHASES: "projectPhases",
@@ -20,11 +20,11 @@ export const LIST_TYPE_FILTER_KEYS = {
 	[FILTER_KEYS.PROJECT_PHASES]: "projectPhase",
 };
 export const API_FILTER_KEYS = {
-	[FILTER_KEYS.DATE_RANGE]: "dateRange",
-	[FILTER_KEYS.DOCUMENT_DATE_RANGE]: ["datePostedStart", "datePostedEnd"],
+	[FILTER_KEYS.DOCUMENT_DATE_RANGE]: { isDateRange: true, apiKeys: ["datePostedStart", "datePostedEnd"] },
 	[FILTER_KEYS.DOCUMENT_AUTHORS]: "documentAuthorType",
 	[FILTER_KEYS.DOCUMENT_PROJECT_PHASES]: "projectPhase",
 	[FILTER_KEYS.DOCUMENT_TYPES]: "type",
+	[FILTER_KEYS.PCP_DATE_RANGE]: { isDateRange: true, apiKeys: ["dateCompletedStart", "dateStartedEnd"] },
 	[FILTER_KEYS.PCP_RECENT]: "dateCompletedStart",
 	[FILTER_KEYS.PCP_PROJECT_PHASES]: "phaseName",
 	[FILTER_KEYS.PROJECT_PHASES]: "currentPhaseName",
@@ -48,11 +48,7 @@ export const DOCUMENT_AUTHOR_MAP = {
 	WORKING_GROUPS: ["Technical Advisory Committee", "Working Group"],
 };
 // filter options
-export const DATE_RANGE = [
-	{ description: "Date Start", key: "dateStart" },
-	{ description: "Date End", key: "dateEnd" },
-];
-export const DOCUMENT_DATE_RANGE = [{ description: "Date Start", key: "datePosted" }];
+export const DATE_RANGE = [{ description: "Date", key: "date" }];
 export const DOCUMENT_AUTHORS = [
 	{ description: "EAO", map: DOCUMENT_AUTHOR_MAP.EAO },
 	{ description: "First Nations", map: DOCUMENT_AUTHOR_MAP.FIRST_NATIONS },

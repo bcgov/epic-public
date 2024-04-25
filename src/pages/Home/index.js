@@ -75,9 +75,7 @@ const Home = () => {
 						)}
 					</div>
 				) : selectedTab === HOME_TAB_KEYS.DOCUMENTS ? (
-					<div>
-						<Documents />
-					</div>
+					<Documents />
 				) : selectedTab === HOME_TAB_KEYS.PUBLIC_COMMENT_PERIODS ? (
 					<CommentPeriods />
 				) : selectedTab === HOME_TAB_KEYS.UPDATES ? (

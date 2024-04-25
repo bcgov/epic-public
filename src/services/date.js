@@ -9,6 +9,14 @@ const _getValidDate = (dateOrString, caller = "") => {
 	throw new Error(`date service: ${caller}: invalid date: ${dateOrString}`);
 };
 
+export const addDays = (dateOrString, days = 0) => {
+	const date = _getValidDate(dateOrString, "addDays");
+
+	date.setDate(date.getDate() + days);
+
+	return date;
+};
+
 export const formatDateLongMonth = (dateOrString = new Date()) => {
 	const date = _getValidDate(dateOrString, "formatDateLongMonth");
 
@@ -19,6 +27,12 @@ export const formatDateOnlyISO = (dateOrString = new Date()) => {
 	const date = _getValidDate(dateOrString, "formatDateOnlyISO");
 
 	return date.toISOString().substring(0, 10);
+};
+
+export const formatDateShortMonth = (dateOrString = new Date()) => {
+	const date = _getValidDate(dateOrString, "formatDateShortMonth");
+
+	return _format(date, { day: "numeric", month: "short", year: "numeric" });
 };
 
 export const isAfterDate = (dateOrString, dateOrString2 = new Date()) => {
@@ -44,11 +58,4 @@ export const subtractDays = (dateOrString, days = 0) => {
 	date.setDate(date.getDate() - days);
 
 	return date;
-};
-
-export const addDays = (date, daysToAdd) => {
-	const result = new Date(date);
-	result.setDate(result.getDate() + daysToAdd);
-
-	return result;
 };
