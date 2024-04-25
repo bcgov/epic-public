@@ -11,7 +11,10 @@ export const FILTER_KEYS = {
 	PROJECT_TYPES: "projectTypes",
 	PROPONENTS: "proponents",
 	STATUS: "status",
+	UPDATE_DATE_RANGE: "updateDateRange",
+	UPDATE_PROJECT_PHASES: "updateProjectPhases",
 	UPDATE_TYPES: "updateTypes",
+	UPDATE_C_AND_E: "complianceAndEnforcement",
 };
 export const LIST_TYPE_FILTER_KEYS = {
 	[FILTER_KEYS.DOCUMENT_AUTHORS]: "author",
@@ -32,7 +35,10 @@ export const API_FILTER_KEYS = {
 	[FILTER_KEYS.PROJECT_TYPES]: "type",
 	[FILTER_KEYS.PROPONENTS]: "proponent",
 	[FILTER_KEYS.STATUS]: "status",
-	[FILTER_KEYS.UPDATE_TYPES]: "updateTypes",
+	[FILTER_KEYS.UPDATE_DATE_RANGE]: { isDateRange: true, apiKeys: ["dateAddedStart", "dateAddedEnd"] },
+	[FILTER_KEYS.UPDATE_PROJECT_PHASES]: "projectPhases",
+	[FILTER_KEYS.UPDATE_TYPES]: "type",
+	[FILTER_KEYS.UPDATE_C_AND_E]: "complianceAndEnforcement",
 };
 export const DOCUMENT_AUTHOR_MAP = {
 	EAO: ["EAO"],
@@ -89,11 +95,6 @@ export const PROJECT_TYPE_KEYS = {
 	WASTE_DISPOSAL: "Waste Disposal",
 	WATER_MANAGEMENT: "Water Management",
 };
-export const DOCUMENT_TYPES = [
-	{ description: "Option 1", key: "1" },
-	{ description: "Option 2", key: "2" },
-	{ description: "Option 3", key: "3" },
-];
 export const PROJECT_TYPES = [
 	{ description: "Energy-Electricity", key: PROJECT_TYPE_KEYS.ENERGY_ELECTRICITY },
 	{ description: "Energy-Petroleum & Natural Gas", key: PROJECT_TYPE_KEYS.ENERGY_PETROLEUM },
@@ -111,13 +112,11 @@ export const STATUSES = [
 	{ description: "Closed", key: "closed" },
 	{ description: "Upcoming", key: "upcoming" },
 ];
-
 export const UPDATE_TYPES = [
-	{ description: "Option 1", key: "1" },
-	{ description: "Option 2", key: "2" },
-	{ description: "Option 3", key: "3" },
+	{ description: "News", key: "News" },
+	{ description: "Public Comment Period", key: "Public Comment Period" },
+	{ description: "Compliance & Enforcement", key: "complianceAndEnforcement" },
 ];
-
 export const TABLE_DEFAULTS = {
 	DEFAULT_PAGE_SIZE: 10,
 	DEFAULT_CURRENT_PAGE: 0,
@@ -127,7 +126,6 @@ export const TABLE_DEFAULTS = {
 		DEFAULT_ORDER_BY: "score",
 	},
 };
-
 export const PROJECT_LEGISLATION_YEARS = [
 	{ description: 2002, key: "legislation_2002" },
 	{ description: 2018, key: "legislation_2018" },

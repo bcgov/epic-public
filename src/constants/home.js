@@ -34,7 +34,7 @@ export const HOME_TABS = [
 		name: "Public Comment Periods",
 	},
 	{
-		filters: [FILTER_KEYS.DATE_RANGE, FILTER_KEYS.PROJECT_PHASES, FILTER_KEYS.UPDATE_TYPES],
+		filters: [FILTER_KEYS.UPDATE_DATE_RANGE, FILTER_KEYS.UPDATE_TYPES],
 		key: HOME_TAB_KEYS.UPDATES,
 		name: "Updates",
 	},

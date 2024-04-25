@@ -35,6 +35,8 @@ export const getFilterComponent = (filterKey) => {
 			return <ProponentsFilter key={filterKey} />;
 		case FILTER_KEYS.STATUS:
 			return <StatusFilter key={filterKey} />;
+		case FILTER_KEYS.UPDATE_DATE_RANGE:
+			return <DateRangeFilter key={filterKey} filterKey={filterKey} />;
 		case FILTER_KEYS.UPDATE_TYPES:
 			return <UpdateTypesFilter key={filterKey} />;
 		default:

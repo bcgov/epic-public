@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { makeStyles } from "tss-react/mui";
 
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
@@ -28,9 +28,6 @@ const useStyles = makeStyles()(() => ({
 	calendars: {
 		alignItems: "center",
 		display: "flex",
-	},
-	calendarEnd: {
-		borderLeft: "1px solid #E9EAEC",
 	},
 }));
 
@@ -79,9 +76,9 @@ const DateRangePicker = ({ endDate, setEndDate, setStartDate, startDate }) => {
 						value={startDate}
 						views={["year", "month", "day"]}
 					/>
+					<Divider orientation="vertical" flexItem />
 					<DateCalendar
 						aria-label="Select end date"
-						className={classes.calendarEnd}
 						minDate={startDate}
 						onChange={handleEndDateChange}
 						showDaysOutsideCurrentMonth

@@ -49,14 +49,14 @@ const useStyles = makeStyles()((theme) => ({
 				color: "#053662",
 			},
 		},
-		"& .documentDateRange, .pcpDateRange, .proponents": {
+		"& .documentDateRange, .pcpDateRange, .proponents, .updateDateRange": {
 			color: "#593F00",
 			backgroundColor: "#FFF8E8",
 			"& svg": {
 				color: "#593F00",
 			},
 		},
-		"& .documentTypes, .projectTypes, .status": {
+		"& .complianceAndEnforcement, .documentTypes, .status, .projectTypes, .updateTypes": {
 			color: "#553402",
 			backgroundColor: "#FFE095",
 			"& svg": {

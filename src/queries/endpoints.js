@@ -46,3 +46,12 @@ export const getProjects = (keywords, filters, tableParameters) => {
 export const getRecentActivity = () => {
 	return api.get(apiConfig, `/recentActivity?top=true`);
 };
+
+export const getUpdates = (keywords, filters, tableParameters) => {
+	return api.get(
+		apiConfig,
+		`/search?dataset=RecentActivity&keywords=${keywords}&projectLegislation=default&populate=true&fuzzy=true${parseTableParams(
+			tableParameters,
+		)}${parseFilters(filters)}`,
+	);
+};

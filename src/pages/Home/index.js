@@ -11,6 +11,7 @@ import UpdatesFeed from "components/UpdatesFeed";
 import CommentPeriods from "./CommentPeriods";
 import Documents from "./Documents";
 import Projects from "./Projects";
+import Updates from "./Updates";
 
 import { HOME_TAB_KEYS, HOME_TABS } from "constants/home";
 
@@ -79,7 +80,7 @@ const Home = () => {
 				) : selectedTab === HOME_TAB_KEYS.PUBLIC_COMMENT_PERIODS ? (
 					<CommentPeriods />
 				) : selectedTab === HOME_TAB_KEYS.UPDATES ? (
-					<div>updates</div>
+					<Updates />
 				) : selectedTab === HOME_TAB_KEYS.MAP ? (
 					<div>view map</div>
 				) : (
