@@ -103,7 +103,7 @@ const UpdateCard = ({ documentUrl, pcp, project, updateContent, updateDate, upda
 	const formattedDate = formatDateLongMonth(updateDate);
 
 	const isSingleDoc = documentUrl && !documentUrl.includes("docs?folder");
-	const pcpUrl = pcp ? (pcp.isMet && pcp.metURL ? pcp.metURL : getPcpPath(pcp._id, project._id)) : "";
+	const pcpUrl = pcp ? getPcpPath(pcp.metURL, pcp._id, project._id) : "";
 
 	// Set Read More button
 	useEffect(() => {

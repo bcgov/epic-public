@@ -71,9 +71,10 @@ const CommentPeriodResults = () => {
 
 	const projects = useMemo(
 		() =>
-			data[0].searchResults.map(({ _id, dateCompleted, dateStarted, phaseName, project }) => ({
+			data[0].searchResults.map(({ _id, dateCompleted, dateStarted, metURL, phaseName, project }) => ({
 				dateRange: `${formatDateLongMonth(new Date(dateStarted))} - ${formatDateLongMonth(new Date(dateCompleted))}`,
 				key: _id,
+				metURL,
 				phaseName,
 				projectId: project._id,
 				projectLink: getProjectPath(project._id),
@@ -92,7 +93,7 @@ const CommentPeriodResults = () => {
 				<Results
 					columns={tableColumns}
 					data={projects}
-					onRowClick={(row) => window.open(getPcpPath(row.projectId, row.key))}
+					onRowClick={(row) => window.open(getPcpPath(row.metURL, row.key, row.projectId))}
 					order={order}
 					orderBy={orderBy}
 					pageNum={pageNum}

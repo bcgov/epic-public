@@ -17,19 +17,23 @@ describe("Url services test", () => {
 	});
 
 	describe("getPcpPath tests", () => {
-		test("returns a valid pcp path", () => {
-			const projectId = "12345";
-			const pcpId = "678";
-			const result = getPcpPath(pcpId, projectId);
-			expect(result).toBe(`/p/${projectId}/cp/${pcpId}`);
+		const projectId = "12345";
+		const pcpId = "678";
+
+		test("returns a valid non-MET pcp path", () => {
+			const metUrl = "";
+			expect(getPcpPath(metUrl, pcpId, projectId)).toBe(`/p/${projectId}/cp/${pcpId}/details`);
+		});
+		test("returns the meturl for MET pcp", () => {
+			const metUrl = "https://eagle-dev.apps.silver.devops.gov.bc.ca";
+			expect(getPcpPath(metUrl, pcpId, projectId)).toBe(metUrl);
 		});
 	});
 
 	describe("getProjectPath tests", () => {
 		test("returns a valid project path", () => {
 			const projectId = "12345";
-			const result = getProjectPath(projectId);
-			expect(result).toBe(`/p/${projectId}/project-details`);
+			expect(getProjectPath(projectId)).toBe(`/p/${projectId}/project-details`);
 		});
 	});
 });

@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 
 import { useSearch } from "contexts/Search";
 
@@ -24,22 +24,23 @@ describe("CommentPeriodResults tests", () => {
 				_id: "1",
 				dateCompleted: "2023-04-01T00:00:00.000Z",
 				dateStarted: "2023-03-01T00:00:00.000Z",
+				metURL: "https://example.com",
 				phaseName: "Phase 1",
-				project: { name: "Project C" },
+				project: { id: "7", name: "Project C" },
 			},
 			{
 				_id: "2",
 				dateCompleted: "2050-04-01T00:00:00.000Z",
 				dateStarted: "2050-03-01T00:00:00.000Z",
 				phaseName: "Phase 2",
-				project: { name: "Project B" },
+				project: { id: "8", name: "Project B" },
 			},
 			{
 				_id: "3",
 				dateCompleted: "2050-04-01T00:00:00.000Z",
 				dateStarted: "2023-03-01T00:00:00.000Z",
 				phaseName: "Phase 1",
-				project: { name: "Project A" },
+				project: { id: "9", name: "Project A" },
 			},
 		],
 		meta: [{ searchResultsTotal: 3 }],
@@ -71,6 +72,31 @@ describe("CommentPeriodResults tests", () => {
 			).toBeInTheDocument();
 			expect(within(dataRow).getByText(getStatus(mockPcp.dateStarted, mockPcp.dateCompleted))).toBeInTheDocument();
 		}
+	});
+
+	test("should render with the correct linked project cell", () => {
+		render(<CommentPeriodResults />);
+
+		const tableRows = screen.getAllByRole("row");
+		expect(tableRows.length).toBe(1 + mockPcpData.meta[0].searchResultsTotal); // header and pcps
+
+		const row = tableRows[1];
+
+		const projectLink = within(row).getByRole("link", { name: mockPcpData.searchResults[0].project.name });
+		expect(projectLink).toBeInTheDocument();
+		expect(projectLink).toHaveAttribute("href", `/p/${mockPcpData.searchResults[0].project._id}/project-details`);
+	});
+
+	test("should open the MET URL when a MET pcp row is clicked", () => {
+		jest.spyOn(window, "open").mockImplementation(() => {});
+
+		render(<CommentPeriodResults />);
+
+		const tableRows = screen.getAllByRole("row");
+		expect(tableRows.length).toBe(1 + mockPcpData.meta[0].searchResultsTotal); // header and pcps
+
+		fireEvent.click(tableRows[1]);
+		expect(window.open).toHaveBeenCalledWith(mockPcpData.searchResults[0].metURL);
 	});
 
 	test("should not render the component when there are no search results", () => {

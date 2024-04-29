@@ -104,7 +104,7 @@ describe("UpdateCard tests", () => {
 			expect(pcpLink).toBeInTheDocument();
 			expect(pcpLink).toHaveAttribute(
 				"href",
-				`/p/${mockPublicPcpUpdate.project._id}/cp/${mockPublicPcpUpdate.pcp._id}`,
+				`/p/${mockPublicPcpUpdate.project._id}/cp/${mockPublicPcpUpdate.pcp._id}/details`,
 			);
 
 			const projectLink = screen.getByRole("link", { name: viewProjectButtonName });

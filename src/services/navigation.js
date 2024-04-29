@@ -8,8 +8,8 @@ export const getDocumentDownloadLink = (displayName, documentFileName, documentI
 	return `${apiConfig.url}/download/${documentId}/download/${encodedName}`;
 };
 
-export const getPcpPath = (pcpId, projectId) => {
-	return `/p/${projectId}/cp/${pcpId}`;
+export const getPcpPath = (metURL, pcpId, projectId) => {
+	return metURL ? metURL : `/p/${projectId}/cp/${pcpId}/details`;
 };
 
 export const getProjectPath = (projectId) => {
