@@ -49,18 +49,18 @@ describe("ProjectResults", () => {
 		jest.resetAllMocks();
 	});
 
-	it("should render the ProjectResults component", () => {
+	test("should render the ProjectResults component", () => {
 		render(<ProjectResults onSearch={jest.fn()} />);
 		expect(screen.getByText("Project 1")).toBeInTheDocument();
 	});
 
-	it("should call onSearch callback when isSearching changes", () => {
+	test("should call onSearch callback when isSearching changes", () => {
 		const onSearchMock = jest.fn();
 		render(<ProjectResults onSearch={onSearchMock} />);
 		expect(onSearchMock).toHaveBeenCalledWith(true);
 	});
 
-	it("should set the default table parameters", () => {
+	test("should set the default table parameters", () => {
 		render(<ProjectResults onSearch={jest.fn()} />);
 		expect(screen.getByText("April 1, 2023")).toBeInTheDocument();
 		expect(screen.getByText("Proponent 1")).toBeInTheDocument();

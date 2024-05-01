@@ -35,7 +35,7 @@ describe("Results Table tests", () => {
 		render(<Results {...mockProps} />);
 		const tableHeadCells = screen.getAllByRole("columnheader");
 		const columnNames = tableHeadCells.map((cell) => cell.textContent);
-		expect(columnNames).toEqual(["Name", "Type", "Index"]);
+		expect(columnNames).toEqual(mockProps.columns.map((item) => item.name));
 	});
 
 	test("The Rows are in the correct default order", () => {
@@ -45,7 +45,7 @@ describe("Results Table tests", () => {
 		const firstColumnData = dataRows.map((row) => {
 			return within(row).getAllByRole("cell")[0].textContent;
 		});
-		expect(firstColumnData).toEqual(["row 1", "row 2", "row 3"]);
+		expect(firstColumnData).toEqual(mockProps.data.map((item) => item.name));
 	});
 
 	test("Table displays data fields that have corresponding columns", () => {
@@ -59,11 +59,7 @@ describe("Results Table tests", () => {
 					return cell.textContent;
 				});
 		});
-		expect(rowDataList).toEqual([
-			["row 1", "Alpha-data", "1"],
-			["row 2", "Beta-data", "2"],
-			["row 3", "Charlie-data", "3"],
-		]);
+		expect(rowDataList).toEqual(mockProps.data.map((item) => [item.name, item.type, item.index.toString()]));
 	});
 
 	test("Table does not display fields which have no corresponding columns", () => {
