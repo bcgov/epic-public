@@ -76,11 +76,54 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 	const disabled = !items.length;
 
 	const keysRef = useRef(selected);
+	const menuButtonRef = useRef(null);
+	const menuRef = useRef(null);
 	const selectedRef = useRef(selected);
 
-	const menuButtonRef = useCallback((node) => {
+	const menuButtonRefCallback = useCallback((node) => {
 		if (!node) return;
 		setWidth(node.clientWidth);
+		menuButtonRef.current = node;
+	}, []);
+
+	const menuRefCallback = useCallback((node) => {
+		if (!node) return;
+		menuRef.current = node;
+	}, []);
+
+	const handleClickOutside = useCallback(
+		(event) => {
+			if (
+				menuButtonRef.current &&
+				menuRef.current &&
+				!menuButtonRef.current.contains(event.target) &&
+				!menuRef.current.contains(event.target)
+			) {
+				setOpen(false);
+			}
+		},
+		[menuButtonRef, menuRef],
+	);
+
+	useEffect(() => {
+		document.addEventListener("click", handleClickOutside, true);
+		return () => {
+			document.removeEventListener("click", handleClickOutside, true);
+		};
+	}, [handleClickOutside]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			if (menuButtonRef.current) {
+				setWidth(menuButtonRef.current.clientWidth);
+			}
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -115,7 +158,7 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 					className={classes.menuButton}
 					disabled={disabled}
 					onClick={onToggle}
-					ref={menuButtonRef}
+					ref={menuButtonRefCallback}
 				>
 					<div>
 						{icon && <div>{icon}</div>}
@@ -123,7 +166,7 @@ const Filter = ({ icon, items = [], onChange, selected, title }) => {
 					</div>
 					{open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 				</MenuButton>
-				<Menu className={classes.menu}>
+				<Menu className={classes.menu} ref={menuRefCallback}>
 					{items.map(({ description, key }) => (
 						<MenuItem
 							className={classes.menuItem}

@@ -81,11 +81,19 @@ const DatePickerFilter = ({
 	const { classes } = useStyles({ width });
 
 	const keysRef = useRef(selected);
+	const menuButtonRef = useRef(null);
+	const menuRef = useRef(null);
 	const selectedRef = useRef(selected);
 
-	const menuButtonRef = useCallback((node) => {
+	const menuButtonRefCallback = useCallback((node) => {
 		if (!node) return;
 		setWidth(node.clientWidth);
+		menuButtonRef.current = node;
+	}, []);
+
+	const menuRefCallback = useCallback((node) => {
+		if (!node) return;
+		menuRef.current = node;
 	}, []);
 
 	useEffect(() => {
@@ -122,6 +130,27 @@ const DatePickerFilter = ({
 		}
 	}, [endDate, filterKey, setKeys, startDate]);
 
+	const handleClickOutside = useCallback(
+		(event) => {
+			if (
+				menuButtonRef.current &&
+				menuRef.current &&
+				!menuButtonRef.current.contains(event.target) &&
+				!menuRef.current.contains(event.target)
+			) {
+				setOpen(false);
+			}
+		},
+		[menuButtonRef, menuRef],
+	);
+
+	useEffect(() => {
+		document.addEventListener("click", handleClickOutside, true);
+		return () => {
+			document.removeEventListener("click", handleClickOutside, true);
+		};
+	}, [handleClickOutside]);
+
 	const onToggle = () => setOpen((val) => !val);
 
 	return (
@@ -131,7 +160,7 @@ const DatePickerFilter = ({
 					aria-label={`Select ${title}`}
 					className={classes.menuButton}
 					onClick={onToggle}
-					ref={menuButtonRef}
+					ref={menuButtonRefCallback}
 				>
 					<div>
 						{icon && <div>{icon}</div>}
@@ -139,7 +168,7 @@ const DatePickerFilter = ({
 					</div>
 					{open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 				</MenuButton>
-				<Menu aria-label="Date Range Picker" className={classes.menu}>
+				<Menu aria-label="Date Range Picker" className={classes.menu} ref={menuRefCallback}>
 					<DateRangePicker
 						endDate={endDate}
 						setEndDate={setEndDate}

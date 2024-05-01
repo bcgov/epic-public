@@ -43,10 +43,25 @@ describe("DatePickerFilter tests", () => {
 			expect(screen.getByLabelText("Date Range Picker")).not.toBeVisible();
 
 			fireEvent.click(menuButton);
-			expect(screen.getByLabelText("Date Range Picker")).toBeVisible();
+			const dateRangePicker = screen.getByLabelText("Date Range Picker");
+			expect(dateRangePicker).toBeVisible();
 
 			fireEvent.click(menuButton);
-			expect(screen.getByLabelText("Date Range Picker")).not.toBeVisible();
+			expect(dateRangePicker).not.toBeVisible();
+		});
+
+		test("closes the dropdown when clicking outside", () => {
+			render(<DatePickerFilter {...mockProps} />);
+
+			const menuButton = screen.getByRole("button", { name: "Select Date Range" });
+			expect(menuButton).toBeInTheDocument();
+
+			fireEvent.click(menuButton);
+			const dateRangePicker = screen.getByLabelText("Date Range Picker");
+			expect(dateRangePicker).toBeVisible();
+
+			fireEvent.click(document.body);
+			expect(dateRangePicker).not.toBeVisible();
 		});
 	});
 

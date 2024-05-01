@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
 import { makeStyles } from "tss-react/mui";
 
 import Button from "@mui/material/Button";
@@ -55,9 +56,18 @@ const SearchBar = ({ placeholder }) => {
 
 	const { isSearching, onSearch, onSearchTermChange, searchTerm } = useSearch();
 
+	const inputRef = useRef(null);
+
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.focus();
+		}
+	}, [searchTerm]);
+
 	return (
 		<div className={classes.container}>
 			<TextField
+				autoFocus
 				className={classes.textField}
 				disabled={isSearching}
 				InputProps={{
@@ -73,6 +83,7 @@ const SearchBar = ({ placeholder }) => {
 					onKeyDown: ({ code }) => code === "Enter" && onSearch(),
 					startAdornment: <SearchIcon className={classes.searchIcon} />,
 				}}
+				inputRef={inputRef}
 				onChange={({ target: { value = "" } = {} }) => onSearchTermChange(value)}
 				placeholder={placeholder}
 				value={searchTerm}

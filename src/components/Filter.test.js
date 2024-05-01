@@ -56,6 +56,19 @@ describe("Filter tests", () => {
 			});
 		});
 
+		test("closes the dropdown when clicking outside", () => {
+			render(<Filter {...mockProps} />);
+
+			// Open the dropdown menu
+			const filterButton = screen.getByRole("button", { name: `Select ${mockProps.title}` });
+			expect(filterButton).toBeInTheDocument();
+			fireEvent.click(filterButton);
+			expect(screen.getByRole("menu")).toBeInTheDocument();
+
+			fireEvent.click(document.body);
+			expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+		});
+
 		test("disables the dropdown when there are no items", () => {
 			render(<Filter {...mockProps} items={[]} selected={[]} />);
 
